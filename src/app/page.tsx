@@ -1,43 +1,14 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
-import { Dumbbell, Zap, Trophy, Users, ArrowRight, Play, Mail, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Play, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import Navbar from "@/features/navbar/components/NavBar";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";
 
 const BossGymLanding = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  const heroY = useTransform(smoothProgress, [0, 0.3], [0, 200]);
-  const heroOpacity = useTransform(smoothProgress, [0, 0.2], [1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.3], [1, 0.8]);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 2,
-        y: (e.clientY / window.innerHeight - 0.5) * 2,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
 
   return (
     <div ref={containerRef} className="relative bg-black text-white overflow-hidden">
@@ -155,40 +126,7 @@ const BossGymLanding = () => {
       </motion.section>
 
       {/* Features Section with Parallax */}
-      <section className="relative py-32 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            className="anton-font text-6xl md:text-8xl text-center mb-20"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            WHY CHOOSE US
-          </motion.h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Zap,
-                title: "INTENSE TRAINING",
-                description: "Push your limits with our high-intensity workout programs designed by experts.",
-              },
-              {
-                icon: Trophy,
-                title: "PROVEN RESULTS",
-                description: "Join thousands who have transformed their bodies and achieved their goals.",
-              },
-              {
-                icon: Users,
-                title: "COMMUNITY",
-                description: "Train with like-minded individuals in a motivating and supportive environment.",
-              },
-            ].map((feature, i) => (
-              <FeatureCard key={i} feature={feature} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <WhyChooseUs />
 
       {/* CTA Section */}
       <section className="relative py-32 px-4">
@@ -297,40 +235,6 @@ const BossGymLanding = () => {
         </div>
       </footer>
     </div>
-  );
-};
-
-const FeatureCard = ({
-  feature,
-  index,
-}: {
-  feature: { icon: any; title: string; description: string };
-  index: number;
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 100 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-      transition={{ duration: 0.8, delay: index * 0.2 }}
-    >
-      <Card className="bg-zinc-900 border-zinc-800 p-8 hover:border-primary transition-all duration-300 group">
-        <motion.div
-          whileHover={{ scale: 1.1, rotate: 360 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6"
-        >
-          <feature.icon className="w-16 h-16 text-primary" />
-        </motion.div>
-        <h3 className="anton-font text-3xl mb-4 group-hover:text-primary transition-colors">
-          {feature.title}
-        </h3>
-        <p className="text-gray-400 text-lg">{feature.description}</p>
-      </Card>
-    </motion.div>
   );
 };
 
