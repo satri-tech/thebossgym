@@ -1,11 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Mail, Phone } from "lucide-react";
+import { ArrowRight, Play, Mail, Phone, Instagram, Facebook, Linkedin, Twitter, Youtube } from "lucide-react";
 import { Button } from "@/core/ui/button";
 import Navbar from "@/features/navbar/components/NavBar";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";
+import { Testimonials } from "@/features/testimonials/components/Testimonials";
+import Footer from "@/features/footer/components/footer";
 
 const BossGymLanding = () => {
   const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
@@ -13,12 +15,6 @@ const BossGymLanding = () => {
   return (
     <div ref={containerRef} className="relative bg-black text-white overflow-hidden">
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-        
-        .anton-font {
-          font-family: 'Anton', sans-serif;
-        }
-
         .boss-text {
           background: linear-gradient(
             135deg, 
@@ -36,7 +32,6 @@ const BossGymLanding = () => {
         }
       `}</style>
 
-      <Navbar />
       {/* Hero Section */}
       <motion.section
         ref={heroRef}
@@ -128,6 +123,9 @@ const BossGymLanding = () => {
       {/* Features Section with Parallax */}
       <WhyChooseUs />
 
+      {/* Testimonials Section */}
+      <Testimonials />
+
       {/* CTA Section */}
       <section className="relative py-32 px-4">
         <motion.div
@@ -155,85 +153,7 @@ const BossGymLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative bg-black border-t border-zinc-900 pt-20 pb-10 px-6 overflow-hidden">
-        {/* Background Text */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-          <span className="anton-font text-[12rem] md:text-[18rem] text-zinc-900/30 select-none whitespace-nowrap tracking-tight">
-            THEBOSS GYM
-          </span>
-        </div>
-
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
-            {/* Brand & Tagline */}
-            <div>
-              <h3 className="anton-font text-2xl text-primary mb-3">THE BOSS GYM</h3>
-              <p className="text-zinc-500 text-sm leading-relaxed">Transform. Dominate. Conquer.</p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <ul className="space-y-4">
-                {["Home", "About Us", "Programs", "Trainers", "Membership", "Contact"].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-zinc-500 text-sm hover:text-primary transition-colors">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Social Links */}
-            <div>
-              <ul className="space-y-4">
-                {["Instagram", "Facebook", "LinkedIn", "Twitter", "YouTube"].map((social) => (
-                  <li key={social}>
-                    <a href="#" className="text-zinc-500 text-sm hover:text-primary transition-colors">
-                      {social}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact & Newsletter */}
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-zinc-500 text-sm">
-                  <Mail className="w-4 h-4 text-zinc-600" />
-                  <span>info@thebossgym.com</span>
-                </div>
-                <div className="flex items-center gap-3 text-zinc-500 text-sm">
-                  <Phone className="w-4 h-4 text-zinc-600" />
-                  <span>+1 234 567 890</span>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-zinc-300 text-sm mb-4">Join our newsletter</p>
-                <div className="flex flex-col gap-3">
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    className="bg-zinc-950 border border-zinc-800 rounded-md px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-700 transition-colors"
-                  />
-                  <Button variant="outline" className="w-full border-zinc-700 text-zinc-300 hover:bg-zinc-900 hover:text-white">
-                    Subscribe
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Copyright */}
-          <div className="border-t border-zinc-900 pt-10 text-right">
-            <p className="text-zinc-600 text-xs">
-              © 2026 The Boss Gym. All rights reserved
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

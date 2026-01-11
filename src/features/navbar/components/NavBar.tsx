@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/core/ui/button";
 import { navLinks } from "../constants/constants";
+import Link from "next/link";
 
 const Navbar = () => {
     return (
@@ -17,24 +18,23 @@ const Navbar = () => {
                     {/* Logo */}
                     <motion.div
                         whileHover={{ scale: 1.05 }}
-                        className="flex-shrink-0"
+                        className="shrink-0"
                     >
                         <span className="anton-font text-2xl font-bold text-primary">
                             BOSS
                         </span>
                     </motion.div>
-
                     {/* Nav Links */}
                     <div className="hidden md:flex items-center gap-8">
                         {navLinks.map((link, i) => (
-                            <motion.a
-                                key={i}
-                                href={link.href}
-                                whileHover={{ color: "#84fd3e" }}
-                                className="text-white text-sm font-medium transition-colors hover:text-primary"
-                            >
-                                {link.label}
-                            </motion.a>
+                            <Link key={i} href={link.href}>
+                                <motion.a
+                                    whileHover={{ color: "#84fd3e" }}
+                                    className="text-white text-sm font-medium transition-colors hover:text-primary cursor-pointer"
+                                >
+                                    {link.label}
+                                </motion.a>
+                            </Link>
                         ))}
                     </div>
 
