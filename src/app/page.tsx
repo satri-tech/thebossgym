@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Play, Mail, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/core/ui/button";
 import Navbar from "@/features/navbar/components/NavBar";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";

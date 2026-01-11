@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/core/ui/button";
 import { navLinks } from "../constants/constants";
 
 const Navbar = () => {
