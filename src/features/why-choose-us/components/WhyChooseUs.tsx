@@ -79,7 +79,7 @@ function StatCounter({ value, suffix, label, inView }: { value: number; suffix: 
   return (
     <div className="relative inline-block">
       <div className="flex items-baseline gap-3">
-        <span className="text-6xl md:text-7xl lg:text-8xl font-bold text-primary anton-font leading-none">
+        <span className="text-6xl md:text-7xl lg:text-8xl font-bold gold-text anton-font leading-none">
           {count}
           {suffix}
         </span>
@@ -150,7 +150,7 @@ function StorySection({ section, index }: { section: StorySection; index: number
           whileInView={{ scale: 1, rotate: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 200 }}
-          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 text-primary"
+          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-black border-2 border-primary text-primary"
         >
           {section.icon}
         </motion.div>
@@ -160,7 +160,7 @@ function StorySection({ section, index }: { section: StorySection; index: number
             {section.title}
           </h3>
 
-          <div className="h-1 w-20 bg-primary rounded-full" />
+          <div className="h-1 w-20 gold-bg rounded-full" />
 
           <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-xl">
             {section.description}
@@ -239,9 +239,9 @@ function StorySection({ section, index }: { section: StorySection; index: number
           whileInView={{ scale: 1, rotate: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, type: 'spring', stiffness: 200 }}
-          className={`absolute ${isReversed ? 'bottom-0 left-0 -translate-x-6 translate-y-6' : 'top-0 right-0 translate-x-6 -translate-y-6'} w-20 h-20 rounded-2xl bg-black border-2 border-primary flex items-center justify-center`}
+          className={`absolute ${isReversed ? 'bottom-0 left-0 -translate-x-6 translate-y-6' : 'top-0 right-0 translate-x-6 -translate-y-6'} w-20 h-20 rounded-2xl bg-black border-2 border-primary flex items-center justify-center shadow-lg shadow-primary/20`}
         >
-          <span className="anton-font text-3xl text-primary">0{index + 1}</span>
+          <span className="anton-font text-3xl gold-text">0{index + 1}</span>
         </motion.div>
       </motion.div>
     </motion.div>
@@ -297,11 +297,11 @@ export function WhyChooseUs() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="h-1 w-32 bg-primary mx-auto rounded-full"
+            className="h-1 w-32 gold-bg mx-auto rounded-full"
           />
 
-          <h2 className="anton-font text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-none">
-            WHY CHOOSE US
+          <h2 className="anton-font text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none">
+            <span className="gold-text">WHY CHOOSE US</span>
           </h2>
 
           <p className="text-zinc-500 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">

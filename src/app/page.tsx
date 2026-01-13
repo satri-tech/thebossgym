@@ -19,9 +19,9 @@ const BossGymLanding = () => {
           background: linear-gradient(
             135deg, 
             #3a3a3a 0%, 
-            #5a5a5a 20%, 
-            #ffffff 45%, 
-            #ffffff 55%, 
+            #5a5a5a 15%, 
+            #ffffff 40%, 
+            #ffffff 60%, 
             #5a5a5a 80%, 
             #3a3a3a 100%
           );
@@ -59,7 +59,7 @@ const BossGymLanding = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mb-8"
           >
-            <h2 className="anton-font text-4xl md:text-6xl text-primary mb-4">
+            <h2 className="anton-font text-4xl md:text-6xl gold-text mb-4">
               GYM
             </h2>
             <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto">
@@ -75,18 +75,18 @@ const BossGymLanding = () => {
           >
             <Button
               size="lg"
-              className="anton-font text-xl px-8 py-6 bg-primary hover:bg-primary/90 text-black group"
+              className="anton-font text-xl px-8 py-6 gold-bg text-black group transition-all tracking-wide"
             >
               START YOUR JOURNEY
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black" />
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="anton-font text-xl px-8 py-6 border-2 border-white text-black hover:bg-white hover:text-black"
+              className="anton-font text-xl px-8 py-6 bg-transparent border-2 border-white/30 hover:border-primary hover:bg-transparent group transition-all"
             >
-              <Play className="mr-2" />
-              WATCH INTRO
+              <Play className="mr-2 text-white group-hover:text-primary transition-colors" fill="currentColor" />
+              <span className="text-white group-hover:gold-text transition-all">WATCH INTRO</span>
             </Button>
           </motion.div>
 
@@ -107,7 +107,7 @@ const BossGymLanding = () => {
                 whileHover={{ scale: 1.1 }}
                 className="text-center"
               >
-                <div className="anton-font text-4xl md:text-5xl text-primary mb-2">
+                <div className="anton-font text-4xl md:text-5xl gold-text mb-2">
                   {stat.number}
                 </div>
                 <div className="text-sm md:text-base text-gray-400">
@@ -138,16 +138,16 @@ const BossGymLanding = () => {
           <h2 className="anton-font text-6xl md:text-8xl mb-8">
             READY TO BE
             <br />
-            <span className="text-primary">THE BOSS?</span>
+            <span className="gold-text">THE BOSS?</span>
           </h2>
           <p className="text-xl text-gray-400 mb-12">
             Start your transformation today with a free trial
           </p>
           <Button
             size="lg"
-            className="anton-font text-2xl px-12 py-8 bg-primary hover:bg-primary/90 text-black"
+            className="anton-font text-2xl px-12 py-8 bg-black border-2 border-primary hover:bg-primary/10"
           >
-            GET STARTED NOW
+            <span className="gold-text">GET STARTED NOW</span>
           </Button>
         </motion.div>
       </section>

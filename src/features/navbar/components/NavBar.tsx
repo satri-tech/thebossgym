@@ -20,7 +20,7 @@ const Navbar = () => {
                         whileHover={{ scale: 1.05 }}
                         className="shrink-0"
                     >
-                        <span className="anton-font text-2xl font-bold text-primary">
+                        <span className="anton-font text-2xl font-bold gold-text">
                             BOSS
                         </span>
                     </motion.div>
@@ -43,8 +43,8 @@ const Navbar = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        <Button className="anton-font text-lg tracking-wide text-neutral-800 px-6 py-5">
-                            JOIN NOW
+                        <Button className="anton-font text-lg tracking-wide px-6 py-5 bg-black border-2 border-primary hover:bg-primary/10">
+                            <span className="gold-text">JOIN NOW</span>
                         </Button>
                     </motion.div>
                 </div>
