@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/core/ui/button";
 import { navLinks } from "../constants/constants";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+    const pathname = usePathname();
     return (
         <motion.nav
             initial={{ opacity: 0, y: -20 }}
@@ -26,16 +28,27 @@ const Navbar = () => {
                     </motion.div>
                     {/* Nav Links */}
                     <div className="hidden md:flex items-center gap-8">
-                        {navLinks.map((link, i) => (
-                            <Link key={i} href={link.href}>
-                                <motion.a
-                                    whileHover={{ color: "#84fd3e" }}
-                                    className="text-white text-sm font-medium transition-colors hover:text-primary cursor-pointer"
-                                >
-                                    {link.label}
-                                </motion.a>
-                            </Link>
-                        ))}
+                        {navLinks.map((link, i) => {
+                            const isActive = pathname === link.href;
+                            return (
+                                <Link key={i} href={link.href}>
+                                    <motion.div
+                                        whileHover={{ scale: 1.05 }}
+                                        className="relative"
+                                    >
+                                        <motion.span
+                                            className={`text-[13px] font-medium transition-colors cursor-pointer ${
+                                                isActive
+                                                    ? "gold-text"
+                                                    : "text-white hover:text-primary"
+                                            }`}
+                                        >
+                                            {link.label}
+                                        </motion.span>
+                                    </motion.div>
+                                </Link>
+                            );
+                        })}
                     </div>
 
                     {/* CTA Button */}

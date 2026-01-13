@@ -1,10 +1,10 @@
 export const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us" },
-  { label: "Services", href: "/services" },
-  { label: "Programs", href: "/programs" },
-  { label: "Trainers", href: "/trainers" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Gallery", href: "/gallery" },
+  { label: "HOME", href: "/" },
+  { label: "ABOUT US", href: "/about-us" },
+  { label: "SERVICES", href: "/services" },
+  { label: "PROGRAMS", href: "/programs" },
+  { label: "TRAINERS", href: "/trainers" },
+  { label: "PRICING", href: "/pricing" },
+  { label: "GALLERY", href: "/gallery" },
   { label: "CONTACT", href: "/contact" },
 ];

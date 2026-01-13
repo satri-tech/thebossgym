@@ -151,9 +151,6 @@ const BossGymLanding = () => {
           </Button>
         </motion.div>
       </section>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

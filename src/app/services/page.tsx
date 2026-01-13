@@ -1,8 +1,8 @@
-import React from 'react'
+import { Services } from '@/features/services/components/Services'
 
 const page = () => {
     return (
-        <div>Services page</div>
+        <Services />
     )
 }
 
