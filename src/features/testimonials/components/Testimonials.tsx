@@ -61,7 +61,7 @@ export function Testimonials() {
             {/* Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
 
-            <div className="relative z-10 max-w-7xl mx-auto">
+            <div className="relative z-0 max-w-7xl mx-auto">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}

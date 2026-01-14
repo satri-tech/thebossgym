@@ -1,13 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Mail, Phone, Instagram, Facebook, Linkedin, Twitter, Youtube } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/core/ui/button";
-import Navbar from "@/features/navbar/components/NavBar";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";
 import { Testimonials } from "@/features/testimonials/components/Testimonials";
-import Footer from "@/features/footer/components/footer";
+import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
 
 const BossGymLanding = () => {
   const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
@@ -122,6 +121,9 @@ const BossGymLanding = () => {
 
       {/* Features Section with Parallax */}
       <WhyChooseUs />
+
+      {/* Trainers Gallery Section */}
+      <TrainersGallery />
 
       {/* Testimonials Section */}
       <Testimonials />
