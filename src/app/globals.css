@@ -138,11 +138,8 @@
     background-size: 200% 200%;
     animation: gold-shimmer 3s ease-in-out infinite;
     border: 2px solid #ffd700;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
   }
-  .gold-bg:hover {
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
-  }
+
   @keyframes gold-shimmer {
     0%, 100% {
       background-position: 0% 50%;
@@ -150,5 +147,24 @@
     50% {
       background-position: 100% 50%;
     }
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background-size: 1000px 100%;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
