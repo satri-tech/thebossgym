@@ -1,10 +1,21 @@
 "use client";
 
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import BackgroundShapes from "@/features/gallery/components/BackgroundShapes";
 import { ImageGallery } from "@/features/gallery/components/image-gallery";
+import { TagFilter } from "@/features/gallery/components/tag-filter";
+import { GALLERY_IMAGES, GALLERY_TAGS } from "@/constants/gallery";
 
 export default function GalleryPage() {
+  const [activeTag, setActiveTag] = useState<string>('All');
+
+  const filteredImages = useMemo(() => {
+    if (activeTag === 'All') {
+      return GALLERY_IMAGES;
+    }
+    return GALLERY_IMAGES.filter((image) => image.tags.includes(activeTag));
+  }, [activeTag]);
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
@@ -32,28 +43,21 @@ export default function GalleryPage() {
             </motion.div>
           </div>
         </section>
-        {/* Gallery */}
-        <section>
-          <ImageGallery />
-        </section>
 
-        {/* <section className="px-4">
+        {/* Tag Filter */}
+        <section className="px-4 pb-8">
           <div className="max-w-7xl mx-auto">
             <TagFilter
-              tags={galleryTags}
+              tags={GALLERY_TAGS}
               activeTag={activeTag}
               onTagChange={setActiveTag}
             />
           </div>
         </section>
 
-        <section className="pb-20 px-4">
-          <div className="max-w-7xl mx-auto">
-            <GalleryGrid
-              images={filteredImages}
-              onImageClick={setSelectedImage}
-            />
-          </div>
+        {/* Gallery */}
+        <section>
+          <ImageGallery images={filteredImages} />
         </section>
 
         {filteredImages.length === 0 && (
@@ -66,15 +70,8 @@ export default function GalleryPage() {
               No images found for this category.
             </p>
           </motion.div>
-        )} */}
+        )}
       </div>
-
-      {/* <Lightbox
-        image={selectedImage}
-        onClose={() => setSelectedImage(null)}
-        onNext={handleNext}
-        onPrev={handlePrev}
-      /> */}
     </div>
   );
 }
