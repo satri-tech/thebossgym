@@ -1,15 +1,29 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/core/ui/button";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";
-import { Testimonials } from "@/features/testimonials/components/Testimonials";
 import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
+import { useEffect, useState } from "react";
+import Testimonials from "@/features/testimonials/components/testimonials";
 
 const BossGymLanding = () => {
   const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 for right to left, -1 for left to right
+  const totalSlides = 4; // Number of testimonials
+
+  // Auto-slider effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDirection(1); // Auto-slide goes right to left
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 8000); // Change slide every 8 seconds
+
+    return () => clearInterval(interval);
+  }, [currentSlide]);
 
   return (
     <div ref={containerRef} className="relative bg-black text-white overflow-hidden">
@@ -125,8 +139,9 @@ const BossGymLanding = () => {
       {/* Trainers Gallery Section */}
       <TrainersGallery />
 
-      {/* Testimonials Section */}
+      {/* Testimonials Section - Premium Luxury Design */}
       <Testimonials />
+
 
       {/* CTA Section */}
       <section className="relative py-32 px-4">

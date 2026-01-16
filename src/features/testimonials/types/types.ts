@@ -1,9 +1,6 @@
-export interface Testimonial {
-  id: number;
+interface ITestimonial {
+  quote: string;
   name: string;
   role: string;
-  goal: "weight-loss" | "muscle-gain" | "endurance" | "general";
-  quote: string;
   image: string;
-  rating: number;
 }

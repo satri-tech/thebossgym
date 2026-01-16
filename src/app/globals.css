@@ -140,7 +140,26 @@
     border: 2px solid #ffd700;
   }
 
+  .gold-border-shine {
+    position: relative;
+    background: linear-gradient(135deg, #d4af37, #ffd700, #f7e7a1, #d4af37, #c9a227, #ffd700);
+    background-size: 300% 300%;
+    animation: gold-shine 4s ease-in-out infinite;
+    padding: 3px;
+    border-radius: 9999px;
+   
+  }
+
   @keyframes gold-shimmer {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes gold-shine {
     0%, 100% {
       background-position: 0% 50%;
     }
