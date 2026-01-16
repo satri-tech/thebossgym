@@ -7,7 +7,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";
 import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
 import { useEffect, useState } from "react";
-import Testimonials from "@/features/testimonials/components/testimonials";
+import Testimonials from "@/features/testimonials/components/Testimonials";
 
 const BossGymLanding = () => {
   const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
