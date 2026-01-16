@@ -44,7 +44,8 @@ const Testimonials = () => {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className=" anton-font text-7xl md:text-7xl text-white tracking-wider uppercase font-light"
                 >
-                  From our
+                  
+                  From our 
                 </motion.p>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
