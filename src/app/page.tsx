@@ -8,6 +8,8 @@ import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";
 import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
 import { useEffect, useState } from "react";
 import Testimonials from "@/features/testimonials/components/testimonials";
+import ExpandableGallery from "@/components/expandable-gallery";
+import { TrainerImages } from "../../public/trainers";
 
 const BossGymLanding = () => {
   const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
@@ -136,12 +138,13 @@ const BossGymLanding = () => {
       {/* Features Section with Parallax */}
       <WhyChooseUs />
 
-      {/* Trainers Gallery Section */}
-      <TrainersGallery />
-
+      {/* Trainers Gallery Section - Isolated from scroll animations */}
+      <div className="relative" style={{ transform: 'translateZ(0)' }}>
+        <TrainersGallery />
+      </div>
+      
       {/* Testimonials Section - Premium Luxury Design */}
       <Testimonials />
-
 
       {/* CTA Section */}
       <section className="relative py-32 px-4">

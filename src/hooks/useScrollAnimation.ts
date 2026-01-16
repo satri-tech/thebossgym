@@ -6,8 +6,8 @@ export interface ScrollAnimationValues {
   heroOpacity: MotionValue<number>;
   heroScale: MotionValue<number>;
   mousePosition: { x: number; y: number };
-  containerRef: React.RefObject<HTMLDivElement>;
-  heroRef: React.RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
+  heroRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function useScrollAnimation(): ScrollAnimationValues {

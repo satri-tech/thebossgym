@@ -1,16 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { TRAINER_IMAGES } from '../constants/trainers.constants';
-import ExpandableGallery from '@/core/components/gallery-animations/gallery-animations';
 import { Button } from '@/core/ui/button';
 import Link from 'next/link';
+import { TrainerImages } from '../../../../public/trainers';
+import ExpandableGallery from '@/components/expandable-gallery';
 
 export function TrainersGallery() {
   return (
-    <section className="relative py-32 md:py-40 px-6 bg-black overflow-hidden">
+    <section className="relative py-32 md:py-40 px-6 bg-black">
       {/* Background Grid */}
-      <div className="absolute inset-0 opacity-[0.03]">
+      <div className="absolute inset-0 opacity-[0.03] overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
@@ -49,15 +49,9 @@ export function TrainersGallery() {
         </motion.div>
 
         {/* Gallery */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mb-12"
-        >
-          <ExpandableGallery images={TRAINER_IMAGES} className="w-full" />
-        </motion.div>
+        <div className="mb-12 w-full flex justify-center">
+          <ExpandableGallery images={TrainerImages} className="w-11/12 max-w-7xl" />
+        </div>
 
         {/* CTA Button */}
         <motion.div
