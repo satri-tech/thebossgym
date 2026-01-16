@@ -1,4 +1,4 @@
-## Getting Started.
+## THE BOSS GYM.
 
 First, run the development server:
 
