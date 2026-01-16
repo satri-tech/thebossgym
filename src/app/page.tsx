@@ -8,8 +8,6 @@ import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";
 import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
 import { useEffect, useState } from "react";
 import Testimonials from "@/features/testimonials/components/testimonials";
-import ExpandableGallery from "@/components/expandable-gallery";
-import { TrainerImages } from "../../public/trainers";
 
 const BossGymLanding = () => {
   const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
