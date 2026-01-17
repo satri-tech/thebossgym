@@ -13,7 +13,7 @@ const AboutUsPage = () => {
     return (
         <div ref={containerRef} className="relative bg-black text-white overflow-hidden">
             {/* Hero Section */}
-            <HeroSection />
+            <HeroSection theme="dark"/>
 
             {/* Mission, Vision & Values */}
             <MissionVisionValues />

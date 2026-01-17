@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/core/ui/button";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { WhyChooseUs } from "@/features/why-choose-us/components/WhyChooseUs";
 import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
 import { useEffect, useState } from "react";
 import Testimonials from "@/features/testimonials/components/Testimonials";
+import HeroSection from "@/features/about-us/components/hero-section";
 
 const BossGymLanding = () => {
   const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
@@ -133,7 +133,8 @@ const BossGymLanding = () => {
 
       </motion.section>
 
-      {/* Features Section with Parallax */}
+      {/* About Us Section  */}
+      <HeroSection theme="transparent" cta_text="Learn More" cta_classname="px-12 py-6" />
 
       {/* Trainers Gallery Section - Isolated from scroll animations */}
       <div className="relative" style={{ transform: 'translateZ(0)' }}>

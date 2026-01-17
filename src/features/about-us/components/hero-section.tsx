@@ -1,29 +1,37 @@
-
 import { motion } from "framer-motion";
-import { } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/core/ui/button";
 import Image from "next/image";
 import AboutUsImage from '../../../../public/gym/about-us.jpg';
+import { cn } from "@/lib/utils";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+    theme?: 'dark' | 'transparent';
+    cta_text?: string
+    cta_classname?: string;
+}
+
+const HeroSection = ({ theme = 'dark', cta_text = "START YOUR JOURNEY", cta_classname = "px-12 py-6" }: HeroSectionProps) => {
+    const isDark = theme === 'dark';
 
     return (
-        <section className="relative min-h-screen bg-black overflow-hidden flex items-center">
-            {/* Background with Parallax */}
-            <div className="absolute inset-0">
-                {/* Dark gradient background */}
-                <div className="absolute inset-0 bg-black" />
-
-                {/* Subtle gold glow effects - visible but not overwhelming */}
+        <section className={`relative min-h-screen overflow-hidden flex items-center ${isDark ? 'bg-black' : 'bg-transparent'}`}>
+            {/* Background with Parallax - Only show for dark theme */}
+            {isDark && (
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-[#d4af37] opacity-15 rounded-full blur-[150px]" />
-                    <div className="absolute bottom-1/4 right-1/3 w-[600px] h-[600px] bg-[#d4af37] opacity-15 rounded-full blur-[150px]" />
-                </div>
+                    {/* Dark gradient background */}
+                    <div className="absolute inset-0 bg-black" />
 
-                {/* Gradient overlay for smooth transition */}
-                <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/80 to-zinc-950" />
-            </div>
+                    {/* Subtle gold glow effects */}
+                    <div className="absolute inset-0">
+                        <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-[#d4af37] opacity-15 rounded-full blur-[150px]" />
+                        <div className="absolute bottom-1/4 right-1/3 w-[600px] h-[600px] bg-[#d4af37] opacity-15 rounded-full blur-[150px]" />
+                    </div>
+
+                    {/* Gradient overlay for smooth transition */}
+                    <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/80 to-zinc-950" />
+                </div>
+            )}
 
             {/* Content */}
             <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 py-32">
@@ -62,39 +70,32 @@ const HeroSection = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.6 }}
-                            className="text-xl md:text-lg text-secondary-foreground leading-relaxed mb-12 max-w-3xl text-justify"
+                            className={`text-xl md:text-lg leading-relaxed mb-12 max-w-3xl ${isDark ? 'text-secondary-foreground text-justify' : 'text-gray-400'}`}
                         >
-                            {` Located near Prithivi Chowk, Pokhara, our gym is more than just a place to work out,
-                            it’s a community where fitness meets lifestyle. We offer state-of-the-art equipment,
-                            expert trainers, and personalized programs designed for every level, from beginners to athletes.
-                            Our goal is to help you build strength, stay healthy, and transform your life.`}
+                            Located near Prithivi Chowk, Pokhara, our gym is more than just a place to work out,
+                            it's a community where fitness meets lifestyle. We offer state-of-the-art equipment,
+                            expert trainers, and personalized programs designed for every level{isDark ? ', from beginners to athletes. Our goal is to help you build strength, stay healthy, and transform your life.' : '.'}
                         </motion.p>
 
-                        {/* CTA and Stats Row */}
-                        <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16">
-
-                            {/* CTA Button */}
+                        {/* CTA Button */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.8 }}
+                        >
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.8 }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <motion.div
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
+                                <Button
+                                    size="lg"
+                                    className={cn(`anton-font text-lg  gold-bg text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all duration-300 tracking-wide group`, cta_classname)}
                                 >
-                                    <Button
-                                        size="lg"
-                                        className="anton-font text-lg px-12 py-6 gold-bg text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all duration-300 tracking-wide group"
-                                    >
-                                        START YOUR JOURNEY
-                                        <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black" />
-                                    </Button>
-                                </motion.div>
+                                    {cta_text}
+                                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black " size={18} />
+                                </Button>
                             </motion.div>
-
-
-                        </div>
+                        </motion.div>
                     </div>
                     <div className="w-5/12 h-130">
                         <Image height={1000} width={10000} alt="about us image" src={AboutUsImage} className="h-full w-full object-cover" />
@@ -105,4 +106,4 @@ const HeroSection = () => {
     )
 }
 
-export default HeroSection
+export default HeroSection;
