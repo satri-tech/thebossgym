@@ -1,11 +1,9 @@
-import React from 'react'
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
-import { Target, Heart, Users, Award, Dumbbell, TrendingUp, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { } from "react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/core/ui/button";
 import Image from "next/image";
-import { useAboutScroll } from '../hooks/useScroll';
 import AboutUsImage from '../../../../public/gym/about-us.jpg';
 
 const HeroSection = () => {
@@ -98,7 +96,7 @@ const HeroSection = () => {
 
                         </div>
                     </div>
-                    <div className="bg-red-600 w-5/12 h-130">
+                    <div className="w-5/12 h-130">
                         <Image height={1000} width={10000} alt="about us image" src={AboutUsImage} className="h-full w-full object-cover" />
                     </div>
                 </div>
