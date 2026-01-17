@@ -134,13 +134,12 @@ const BossGymLanding = () => {
       </motion.section>
 
       {/* Features Section with Parallax */}
-      <WhyChooseUs />
 
       {/* Trainers Gallery Section - Isolated from scroll animations */}
       <div className="relative" style={{ transform: 'translateZ(0)' }}>
         <TrainersGallery />
       </div>
-      
+
       {/* Testimonials Section - Premium Luxury Design */}
       <Testimonials />
 

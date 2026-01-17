@@ -59,9 +59,9 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           whileInView={{ scale: 1, rotate: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 200 }}
-          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-black border-2 border-primary text-primary"
+          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-black gold-border-glow"
         >
-          <service.icon className="w-8 h-8" />
+          <service.icon className="w-8 h-8 gold-icon" />
         </motion.div>
 
         <div className="space-y-6">

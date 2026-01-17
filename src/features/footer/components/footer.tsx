@@ -24,7 +24,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
                     {/* Brand & Tagline */}
                     <div>
-                        <h3 className="anton-font text-2xl text-primary mb-3">{FOOTER_BRAND.name}</h3>
+                        <h3 className="anton-font text-2xl gold-text mb-3">{FOOTER_BRAND.name}</h3>
                         <p className="text-zinc-500 text-sm leading-relaxed mb-6">{FOOTER_BRAND.tagline}</p>
 
                         {/* Social Icons */}
@@ -38,8 +38,6 @@ const Footer = () => {
                                 >
                                     <social.icon className="w-4 h-4 text-zinc-500 group-hover:text-primary transition-colors duration-300" />
 
-                                    {/* Hover glow effect */}
-                                    <div className="absolute inset-0 rounded-lg bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300" />
                                 </a>
                             ))}
                         </div>
@@ -52,7 +50,6 @@ const Footer = () => {
                             {FOOTER_QUICK_LINKS.map((link) => (
                                 <li key={link}>
                                     <a href="#" className="text-zinc-500 text-sm hover:text-primary transition-colors inline-flex items-center gap-2 group">
-                                        <span className="w-0 h-px bg-primary group-hover:w-3 transition-all duration-300" />
                                         {link}
                                     </a>
                                 </li>
@@ -85,21 +82,7 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Newsletter */}
-                    <div>
-                        <h4 className="text-white font-semibold text-sm mb-6">{FOOTER_NEWSLETTER.title}</h4>
-                        <p className="text-zinc-500 text-xs mb-4">{FOOTER_NEWSLETTER.description}</p>
-                        <div className="flex flex-col gap-3">
-                            <input
-                                type="email"
-                                placeholder={FOOTER_NEWSLETTER.placeholder}
-                                className="bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-primary/50 transition-colors"
-                            />
-                            <Button variant="outline" className="w-full border-zinc-700 text-zinc-300 hover:bg-primary hover:text-black hover:border-primary transition-all">
-                                {FOOTER_NEWSLETTER.buttonText}
-                            </Button>
-                        </div>
-                    </div>
+                   
                 </div>
 
                 {/* Copyright */}

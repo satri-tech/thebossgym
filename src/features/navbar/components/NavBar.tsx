@@ -34,17 +34,24 @@ const Navbar = () => {
                                 <Link key={i} href={link.href}>
                                     <motion.div
                                         whileHover={{ scale: 1.05 }}
-                                        className="relative"
+                                        className="relative group inline-block"
                                     >
-                                        <motion.span
-                                            className={`text-[13px] font-medium transition-colors cursor-pointer ${
-                                                isActive
-                                                    ? "gold-text"
-                                                    : "text-white hover:text-primary"
-                                            }`}
-                                        >
-                                            {link.label}
-                                        </motion.span>
+                                        <span className="text-[13px] font-medium cursor-pointer inline-block relative">
+                                            <span
+                                                className={`transition-opacity ${
+                                                    isActive
+                                                        ? "gold-text"
+                                                        : "text-white group-hover:opacity-0"
+                                                }`}
+                                            >
+                                                {link.label}
+                                            </span>
+                                            {!isActive && (
+                                                <span className="gold-text absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    {link.label}
+                                                </span>
+                                            )}
+                                        </span>
                                     </motion.div>
                                 </Link>
                             );
@@ -56,7 +63,10 @@ const Navbar = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        <Button className="anton-font text-lg tracking-wide px-6 py-5 bg-black border-2 border-primary hover:bg-primary/10">
+                        <Button
+                            variant="goldGlow"
+                            className="anton-font text-lg tracking-wide px-6 py-5"
+                        >
                             <span className="gold-text">JOIN NOW</span>
                         </Button>
                     </motion.div>
