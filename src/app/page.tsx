@@ -8,6 +8,7 @@ import { TrainersGallery } from "@/features/trainers/components/TrainersGallery"
 import { useEffect, useState } from "react";
 import Testimonials from "@/features/testimonials/components/Testimonials";
 import HeroSection from "@/features/about-us/components/hero-section";
+import Link from "next/link";
 
 const BossGymLanding = () => {
   const { heroY, heroOpacity, heroScale, containerRef, heroRef } = useScrollAnimation();
@@ -49,7 +50,7 @@ const BossGymLanding = () => {
       <motion.section
         ref={heroRef}
         style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28"
       >
 
         {/* Hero Content */}
@@ -86,13 +87,15 @@ const BossGymLanding = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <Button
-              size="lg"
-              className="anton-font text-xl px-8 py-6 gold-bg text-black group transition-all tracking-wide"
-            >
-              START YOUR JOURNEY
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black" />
-            </Button>
+            <Link href={'/contact'}>
+              <Button
+                size="lg"
+                className="anton-font text-xl px-8 py-6 gold-bg text-black group transition-all tracking-wide"
+              >
+                START YOUR JOURNEY
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black" />
+              </Button>
+            </Link>
             <Button
               size="lg"
               variant="outline"
@@ -161,12 +164,15 @@ const BossGymLanding = () => {
           <p className="text-xl text-gray-400 mb-12">
             Start your transformation today with a free trial
           </p>
-          <Button
-            size="lg"
-            className="anton-font text-2xl px-12 py-8 bg-black border-2 border-primary hover:bg-primary/10"
-          >
-            <span className="gold-text">GET STARTED NOW</span>
-          </Button>
+
+          <Link href={'/contact'}>
+            <Button
+              size="lg"
+              className="anton-font text-2xl px-12 py-8 bg-black border-2 border-primary hover:bg-primary/10"
+            >
+              <span className="gold-text">GET STARTED NOW</span>
+            </Button>
+          </Link>
         </motion.div>
       </section>
     </div>

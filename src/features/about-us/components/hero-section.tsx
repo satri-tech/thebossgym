@@ -4,6 +4,7 @@ import { Button } from "@/core/ui/button";
 import Image from "next/image";
 import AboutUsImage from '../../../../public/gym/about-us.jpg';
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface HeroSectionProps {
     theme?: 'dark' | 'transparent';
@@ -34,7 +35,7 @@ const HeroSection = ({ theme = 'dark', cta_text = "START YOUR JOURNEY", cta_clas
             )}
 
             {/* Content */}
-            <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 py-32">
+            <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 py-36">
                 <div className="max-w-7xl mx-auto flex gap-10">
                     <div className="flex w-7/12 flex-col">
 
@@ -70,7 +71,7 @@ const HeroSection = ({ theme = 'dark', cta_text = "START YOUR JOURNEY", cta_clas
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.6 }}
-                            className={`text-xl md:text-lg leading-relaxed mb-12 max-w-3xl ${isDark ? 'text-secondary-foreground text-justify' : 'text-gray-400'}`}
+                            className={`text-xl md:text-lg leading-relaxed mb-12 max-w-3xl text-secondary-foreground text-justify `}
                         >
                             Located near Prithivi Chowk, Pokhara, our gym is more than just a place to work out,
                             it's a community where fitness meets lifestyle. We offer state-of-the-art equipment,
@@ -84,16 +85,18 @@ const HeroSection = ({ theme = 'dark', cta_text = "START YOUR JOURNEY", cta_clas
                             transition={{ duration: 0.8, delay: 0.8 }}
                         >
                             <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.01 }}
+                                whileTap={{ scale: 0.99 }}
                             >
-                                <Button
-                                    size="lg"
-                                    className={cn(`anton-font text-lg  gold-bg text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all duration-300 tracking-wide group`, cta_classname)}
-                                >
-                                    {cta_text}
-                                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black " size={18} />
-                                </Button>
+                                <Link href={cta_text === "START YOUR JOURNEY" ? "/contact" : '/about-us'}>
+                                    <Button
+                                        size="lg"
+                                        className={cn(`anton-font text-lg  gold-bg text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all duration-300 tracking-wide group`, cta_classname)}
+                                    >
+                                        {cta_text}
+                                        <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black " size={18} />
+                                    </Button>
+                                </Link>
                             </motion.div>
                         </motion.div>
                     </div>

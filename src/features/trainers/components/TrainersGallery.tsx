@@ -8,7 +8,7 @@ import ExpandableGallery from '@/components/expandable-gallery';
 
 export function TrainersGallery() {
   return (
-    <section className="relative py-32 md:py-40 px-6 bg-black">
+    <section className="relative py-20 md:py-32 px-6 bg-black">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-[0.03] overflow-hidden">
         <div

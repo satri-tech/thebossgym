@@ -1,10 +1,10 @@
 import React from 'react';
-import { TrainersCards } from '@/features/trainers/components/TrainersCards';
+import { MinimalTrainers } from '@/features/trainers/components/MinimalTrainers';
 
 const TrainersPage = () => {
   return (
     <main className="min-h-screen bg-black pt-20">
-      <TrainersCards />
+      <MinimalTrainers />
     </main>
   );
 };

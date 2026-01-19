@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 import FeatureItem from "./FeatureItem";
 
 interface PricingCardProps {
@@ -24,6 +25,21 @@ export default function PricingCard({
   index,
 }: PricingCardProps) {
   const price = isYearly ? yearlyPrice : monthlyPrice;
+  const router = useRouter();
+
+  const handleGetStarted = () => {
+    const planType = isYearly ? 'yearly' : 'monthly';
+    const message = `I'm interested in the ${name} plan (${planType}) at Rs ${price.toLocaleString()}/${isYearly ? 'year' : 'month'}.`;
+    
+    const params = new URLSearchParams({
+      plan: name,
+      planType,
+      price: price.toString(),
+      message,
+    });
+    
+    router.push(`/contact?${params.toString()}`);
+  };
 
   return (
     <motion.div
@@ -106,6 +122,7 @@ export default function PricingCard({
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            onClick={handleGetStarted}
             className={`w-full py-4 rounded-xl font-bold text-lg mb-8 flex items-center justify-center gap-2 transition-all duration-300
               ${isPopular
                 ? 'gold-bg text-black hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]'

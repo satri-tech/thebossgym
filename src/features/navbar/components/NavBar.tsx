@@ -38,11 +38,10 @@ const Navbar = () => {
                                     >
                                         <span className="text-[13px] font-medium cursor-pointer inline-block relative">
                                             <span
-                                                className={`transition-opacity ${
-                                                    isActive
-                                                        ? "gold-text"
-                                                        : "text-white group-hover:opacity-0"
-                                                }`}
+                                                className={`transition-opacity ${isActive
+                                                    ? "gold-text"
+                                                    : "text-white group-hover:opacity-0"
+                                                    }`}
                                             >
                                                 {link.label}
                                             </span>
@@ -63,12 +62,14 @@ const Navbar = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        <Button
-                            variant="goldGlow"
-                            className="anton-font text-lg tracking-wide px-6 py-5"
-                        >
-                            <span className="gold-text">JOIN NOW</span>
-                        </Button>
+                        <Link href={'/contact'}>
+                            <Button
+                                variant="goldGlow"
+                                className="anton-font text-lg tracking-wide px-6 py-5"
+                            >
+                                <span className="gold-text">JOIN NOW</span>
+                            </Button>
+                        </Link>
                     </motion.div>
                 </div>
             </div>

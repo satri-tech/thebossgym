@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/core/ui/button";
+import Link from "next/link";
 const CTASection = () => {
     return (
         <section className="relative py-32 px-4">
@@ -27,13 +28,15 @@ const CTASection = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <Button
-                        size="lg"
-                        className="anton-font text-xl px-8 py-6 gold-bg text-black group transition-all tracking-wide hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]"
-                    >
-                        Start Your Journey
-                        <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black" />
-                    </Button>
+                    <Link href={'/contact'}>
+                        <Button
+                            size="lg"
+                            className="anton-font text-xl px-8 py-6 gold-bg text-black group transition-all tracking-wide hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]"
+                        >
+                            Start Your Journey
+                            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform text-black" />
+                        </Button>
+                    </Link>
                 </motion.div>
             </motion.div>
         </section>

@@ -143,7 +143,7 @@ export function Services() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-40 px-6 bg-black overflow-hidden">
+    <section ref={sectionRef} className="relative py-20 md:py-32 px-6 bg-black overflow-hidden">
       {/* Animated Background Grid */}
       <motion.div
         style={{ y: backgroundY }}
