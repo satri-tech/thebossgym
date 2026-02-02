@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/core/ui/button";
+import { Button } from "@/core/components/ui/button";
 import Link from "next/link";
 const CTASection = () => {
     return (

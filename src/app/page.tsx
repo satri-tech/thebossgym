@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
-import { Button } from "@/core/ui/button";
+import { Button } from "@/core/components/ui/button";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
 import { useEffect, useState } from "react";

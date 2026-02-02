@@ -12,7 +12,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/core/ui/select";
+} from "@/core/components/ui/select";
 
 // Dynamically import the map component to avoid SSR issues
 const ContactMap = dynamic(() => import('@/components/contact-map'), {

@@ -1,6 +1,6 @@
 
 import { Mail, Phone } from "lucide-react";
-import { Button } from "@/core/ui/button";
+import { Button } from "@/core/components/ui/button";
 import {
     FOOTER_BRAND,
     FOOTER_SOCIAL_LINKS,

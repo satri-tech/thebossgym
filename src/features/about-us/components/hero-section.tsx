@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/core/ui/button";
+import { Button } from "@/core/components/ui/button";
 import Image from "next/image";
 import AboutUsImage from '../../../../public/gym/about-us.jpg';
 import { cn } from "@/lib/utils";
