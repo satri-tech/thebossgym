@@ -7,7 +7,7 @@ export const updateAboutSchema = z.object({
   description: z.string().min(1, "Description cannot be empty").trim().optional(),
   buttonText: z.string().min(1, "Button text cannot be empty").max(50, "Button text must be less than 50 characters").trim().optional(),
   buttonLink: z.string().min(1, "Button link cannot be empty").max(200, "Button link must be less than 200 characters").trim().optional(),
-  image: z.string().url("Image must be a valid URL").optional().nullable(),
+  image: z.string().optional().nullable(),
 }).refine((data) => Object.keys(data).length > 0, {
   message: "At least one field must be provided",
 });

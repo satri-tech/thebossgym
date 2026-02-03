@@ -3,6 +3,7 @@ import prisma from "@/core/lib/prisma";
 import { checkAuth } from "@/core/lib/auth/auth-utils";
 import { successResponse, errorResponse, validationError } from "@/core/lib/auth/api-response";
 import { updateAboutSchema } from "@/core/validators/about.validator";
+import { deleteFiles } from "@/core/lib/image/uploadFiles";
 import { ZodError } from "zod";
 
 export async function PATCH(request: NextRequest) {
@@ -28,6 +29,14 @@ export async function PATCH(request: NextRequest) {
         },
       });
       return successResponse(about, "About section created successfully", 201);
+    }
+
+    // If image is being updated and old image exists, delete the old one
+    if (validatedData.image && about.image && validatedData.image !== about.image) {
+      const oldFilename = about.image.split("/").pop();
+      if (oldFilename) {
+        await deleteFiles([oldFilename], "public/about");
+      }
     }
 
     const updatedAbout = await prisma.about.update({
