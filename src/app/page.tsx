@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/core/components/ui/button";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollAnimation } from "@/core/lib/useScrollAnimation";
 import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
 import { useEffect, useState } from "react";
 import Testimonials from "@/features/testimonials/components/Testimonials";

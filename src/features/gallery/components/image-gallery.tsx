@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { useInView } from 'framer-motion';
 import { AspectRatio } from '@/core/components/gallery-animations/aspect-ratio';
-import { GALLERY_IMAGES, type GalleryImage } from '@/constants/gallery';
+import { GALLERY_IMAGES, type GalleryImage } from '@/core/constants/gallery';
 
 interface ImageGalleryProps {
 	images: GalleryImage[];

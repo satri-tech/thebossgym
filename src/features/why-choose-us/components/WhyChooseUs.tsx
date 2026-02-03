@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { useCountUp } from '@/hooks/useCountUp';
+import { useCountUp } from '@/core/lib/useCountUp';
 import { Dumbbell, Users, Trophy, Zap } from 'lucide-react';
 
 interface StorySection {

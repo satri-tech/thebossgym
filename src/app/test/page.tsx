@@ -1,5 +1,5 @@
 "use client"
-import ExpandableGallery from '@/components/expandable-gallery'
+import ExpandableGallery from '@/core/components/expandable-gallery'
 import { TrainerImages } from '../../../public/trainers'
 const page = () => {
 

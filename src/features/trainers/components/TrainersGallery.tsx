@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/core/components/ui/button';
 import Link from 'next/link';
 import { TrainerImages } from '../../../../public/trainers';
-import ExpandableGallery from '@/components/expandable-gallery';
+import ExpandableGallery from '@/core/components/expandable-gallery';
 
 export function TrainersGallery() {
   return (

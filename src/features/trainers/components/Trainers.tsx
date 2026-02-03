@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { TRAINERS, TRAINER_IMAGES } from '../constants/trainers.constants';
 import { Award, Dumbbell, Heart } from 'lucide-react';
-import ExpandableGallery from '@/components/expandable-gallery';
+import ExpandableGallery from '@/core/components/expandable-gallery';
 
 export function Trainers() {
   return (

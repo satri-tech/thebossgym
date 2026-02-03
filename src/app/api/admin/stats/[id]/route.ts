@@ -1,12 +1,12 @@
 import { NextRequest } from "next/server";
 import prisma from "@/core/lib/prisma";
-import { checkAuth } from "@/lib/auth-utils";
+import { checkAuth } from "@/core/lib/auth/auth-utils";
 import {
   successResponse,
   errorResponse,
   validationError,
-} from "@/lib/api-response";
-import { updateStatsSchema } from "@/lib/validators/stats.validator";
+} from "@/core/lib/auth/api-response";
+import { updateStatsSchema } from "@/core/validators/stats.validator";
 import { ZodError } from "zod";
 
 type RouteContext = {

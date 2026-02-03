@@ -1,11 +1,11 @@
 import { NextRequest } from "next/server";
-import { checkAuth } from "@/lib/auth-utils";
+import { checkAuth } from "@/core/lib/auth/auth-utils";
 import {
   successResponse,
   errorResponse,
   validationError,
-} from "@/lib/api-response";
-import { createStatsSchema } from "@/lib/validators/stats.validator";
+} from "@/core/lib/auth/api-response";
+import { createStatsSchema } from "@/core/validators/stats.validator";
 import { ZodError } from "zod";
 import prisma from "@/core/lib/prisma";
 

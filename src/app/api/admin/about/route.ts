@@ -1,8 +1,8 @@
 import { NextRequest } from "next/server";
 import prisma from "@/core/lib/prisma";
-import { checkAuth } from "@/lib/auth-utils";
-import { successResponse, errorResponse, validationError } from "@/lib/api-response";
-import { updateAboutSchema } from "@/lib/validators/about.validator";
+import { checkAuth } from "@/core/lib/auth/auth-utils";
+import { successResponse, errorResponse, validationError } from "@/core/lib/auth/api-response";
+import { updateAboutSchema } from "@/core/validators/about.validator";
 import { ZodError } from "zod";
 
 export async function PATCH(request: NextRequest) {

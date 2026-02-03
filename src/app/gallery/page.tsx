@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import BackgroundShapes from "@/features/gallery/components/BackgroundShapes";
 import { ImageGallery } from "@/features/gallery/components/image-gallery";
 import { TagFilter } from "@/features/gallery/components/tag-filter";
-import { GALLERY_IMAGES, GALLERY_TAGS } from "@/constants/gallery";
+import { GALLERY_IMAGES, GALLERY_TAGS } from "@/core/constants/gallery";
 
 export default function GalleryPage() {
   const [activeTag, setActiveTag] = useState<string>('All');

@@ -15,7 +15,7 @@ import {
 } from "@/core/components/ui/select";
 
 // Dynamically import the map component to avoid SSR issues
-const ContactMap = dynamic(() => import('@/components/contact-map'), {
+const ContactMap = dynamic(() => import('@/core/components/contact-map'), {
     ssr: false,
     loading: () => (
         <div className="w-full h-full bg-zinc-950 flex items-center justify-center">

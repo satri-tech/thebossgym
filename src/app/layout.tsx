@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Anton } from "next/font/google";
 import "./globals.css";
 import LayoutContent from "./layout-content";
-import AuthProvider from "@/core/lib/auth-provider";
+import AuthProvider from "@/core/providers/auth-provider";
+import { outfit } from "@/core/fonts/outfit";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${anton.variable} antialiased`}
+        className={`${outfit.variable} ${geistSans.variable} ${geistMono.variable} ${anton.variable} antialiased font-sans`}
+        style={{ fontFamily: 'var(--font-outfit)' }}
       >
         <LayoutContent>
           <AuthProvider>
