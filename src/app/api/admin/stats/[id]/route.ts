@@ -67,16 +67,6 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       }
     }
 
-    if (validatedData.order !== undefined && validatedData.order !== existingStat.order) {
-      const orderExists = await prisma.stats.findFirst({
-        where: { order: validatedData.order },
-      });
-
-      if (orderExists) {
-        return errorResponse("A stat with this order already exists", 409);
-      }
-    }
-
     const updatedStat = await prisma.stats.update({
       where: { id },
       data: validatedData,

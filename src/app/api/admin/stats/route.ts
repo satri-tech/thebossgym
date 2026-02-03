@@ -41,16 +41,18 @@ export async function POST(request: NextRequest) {
       return errorResponse("A stat with this label already exists", 409);
     }
 
-    const existingOrder = await prisma.stats.findFirst({
-      where: { order: validatedData.order },
+    // Auto-calculate order: get the highest order and add 1
+    const maxOrderStat = await prisma.stats.findFirst({
+      orderBy: { order: "desc" },
     });
 
-    if (existingOrder) {
-      return errorResponse("A stat with this order already exists", 409);
-    }
+    const newOrder = maxOrderStat ? maxOrderStat.order + 1 : 0;
 
     const newStat = await prisma.stats.create({
-      data: validatedData,
+      data: {
+        ...validatedData,
+        order: newOrder,
+      },
     });
 
     return successResponse(newStat, "Stat created successfully", 201);
