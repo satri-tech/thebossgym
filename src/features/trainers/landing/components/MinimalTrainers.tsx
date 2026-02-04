@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Instagram, Linkedin, Twitter } from 'lucide-react';
-import { TRAINERS } from '../../constants/trainers.constants';
+import { TRAINERS } from '../constants/trainers.constants';
 
 export function MinimalTrainers() {
   return (
