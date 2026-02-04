@@ -64,7 +64,7 @@ export function FacilityCard({ facility, onEdit, onDelete }: FacilityCardProps) 
                 </div>
             </div>
 
-            <CardHeader className="space-y-2">
+            <CardHeader className="gap-1">
                 <CardTitle className="line-clamp-2 text-lg leading-snug">
                     {facility.title}
                 </CardTitle>
@@ -79,7 +79,7 @@ export function FacilityCard({ facility, onEdit, onDelete }: FacilityCardProps) 
                         variant="secondary"
                         size="sm"
                         onClick={() => onEdit(facility)}
-                        className="flex-1 bg-muted/50 hover:bg-muted"
+                        className="flex-1 bg-muted/50 hover:bg-muted rounded-sm"
                     >
                         <Edit className="h-4 w-4 mr-2" />
                         Edit
@@ -88,7 +88,7 @@ export function FacilityCard({ facility, onEdit, onDelete }: FacilityCardProps) 
                         variant="destructive"
                         size="sm"
                         onClick={() => onDelete(facility.id)}
-                        className="flex-1"
+                        className="flex-1 rounded-sm"
                     >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Delete

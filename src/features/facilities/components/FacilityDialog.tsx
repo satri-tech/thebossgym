@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/core/components/ui/dialog";
-import { Upload, X } from "lucide-react";
+import { ImageUploadField } from "@/core/components/image-upload/ImageUploadField";
 import { toast } from "sonner";
 import { FACILITIES_FALLBACK_IMAGE_URL } from "../constants/facilities.constants";
 
@@ -33,7 +33,6 @@ export function FacilityDialog({ open, onOpenChange, facility, onSubmit }: Facil
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (facility) {
@@ -43,7 +42,6 @@ export function FacilityDialog({ open, onOpenChange, facility, onSubmit }: Facil
         description: facility.description,
         image: facility.image,
       });
-      // Don't show fallback image as a preview in edit mode
       setImagePreview(isFallbackImage ? null : facility.image);
     } else {
       setFormData({
@@ -55,54 +53,16 @@ export function FacilityDialog({ open, onOpenChange, facility, onSubmit }: Facil
     }
     setImageFile(null);
     setErrors({});
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
   }, [facility, open]);
 
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Validate file type
-      if (!file.type.startsWith("image/")) {
-        toast.error("Invalid file type", {
-          description: "Please select a valid image file (JPG, PNG, WebP, or GIF)",
-        });
-        return;
+  const handleImageSelect = (file: File | null) => {
+    setImageFile(file);
+    if (!file) {
+      if (facility) {
+        setFormData((prev) => ({ ...prev, image: FACILITIES_FALLBACK_IMAGE_URL }));
+      } else {
+        setFormData((prev) => ({ ...prev, image: "" }));
       }
-
-      // Validate file size (5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error("File too large", {
-          description: "Image size must be less than 5MB",
-        });
-        return;
-      }
-
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setImageFile(null);
-
-    // For edit: persist removal by storing a fallback image URL in the DB
-    // For create: keep it empty so "image is required" still applies
-    if (facility) {
-      setFormData((prev) => ({ ...prev, image: FACILITIES_FALLBACK_IMAGE_URL }));
-      // Hide fallback image in UI (fallback is not removable; only updatable)
-      setImagePreview(null);
-    } else {
-      setFormData((prev) => ({ ...prev, image: "" }));
-      setImagePreview(null);
-    }
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
     }
   };
 
@@ -170,57 +130,22 @@ export function FacilityDialog({ open, onOpenChange, facility, onSubmit }: Facil
           </div>
 
           {/* Image Upload */}
-          <div className="space-y-2">
-            <Label>Image</Label>
-            <div className="space-y-4">
-              {imagePreview && (
-                <div className="relative w-full max-w-md">
-                  <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={imagePreview}
-                      alt="Facility preview"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  {/* Only allow removal when there's a real preview (not fallback) */}
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="icon"
-                    className="absolute top-2 right-2"
-                    onClick={handleRemoveImage}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-              )}
-
-              <div className="flex items-center gap-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <Upload className="h-4 w-4 mr-2" />
-                  {imagePreview ? "Change Image" : "Upload Image"}
-                </Button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageSelect}
-                  className="hidden"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Max size: 5MB. Formats: JPG, PNG, WebP, GIF
-                </p>
-              </div>
-              {!facility && !imageFile && (
-                <p className="text-xs text-destructive">Image is required</p>
-              )}
-            </div>
-          </div>
+          <ImageUploadField
+            label="Image"
+            value={formData.image}
+            onChange={handleImageSelect}
+            onPreviewChange={setImagePreview}
+            preview={imagePreview}
+            fallbackImage={FACILITIES_FALLBACK_IMAGE_URL}
+            isEditing={!!facility}
+            required={!facility}
+            maxSize={5 * 1024 * 1024}
+            acceptedFormats={["image/jpeg", "image/png", "image/webp", "image/gif"]}
+            helpText="Max size: 5MB. Formats: JPG, PNG, WebP, GIF"
+            hideFallbackPreview={true}
+            error={errors.image}
+            showRequiredError={!!errors.image}
+          />
 
           <div className="flex gap-3 pt-2">
             <Button
