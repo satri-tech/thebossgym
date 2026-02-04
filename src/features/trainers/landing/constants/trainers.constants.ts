@@ -1,6 +1,6 @@
-import { Trainer } from "../../types/trainers.types";
+import { LandingTrainer } from "../../types/trainers.types";
 
-export const TRAINERS: Trainer[] = [
+export const TRAINERS: LandingTrainer[] = [
   {
     name: 'Mike Johnson',
     title: 'Head Boxing Coach',

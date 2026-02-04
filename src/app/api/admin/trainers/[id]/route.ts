@@ -47,6 +47,9 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 
     const existingTrainer = await prisma.trainer.findUnique({
       where: { id },
+      include: {
+        socialMedia: true,
+      },
     });
 
     if (!existingTrainer) {
@@ -56,9 +59,32 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     const body = await request.json();
     const validatedData = updateTrainerSchema.parse(body);
 
+    const { socialMedia, ...trainerData } = validatedData;
+
+    // If socialMedia is provided, update it
+    if (socialMedia !== undefined) {
+      // Delete existing social media entries
+      await prisma.trainerSocialMedia.deleteMany({
+        where: { trainerId: id },
+      });
+
+      // Create new social media entries
+      if (socialMedia.length > 0) {
+        await prisma.trainerSocialMedia.createMany({
+          data: socialMedia.map((sm) => ({
+            title: sm.title,
+            link: sm.link,
+            icon: sm.icon || null,
+            trainerId: id,
+          })),
+        });
+      }
+    }
+
+    // Update trainer basic info
     const updatedTrainer = await prisma.trainer.update({
       where: { id },
-      data: validatedData,
+      data: trainerData,
       include: {
         socialMedia: true,
       },
