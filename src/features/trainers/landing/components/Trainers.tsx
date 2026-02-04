@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { TRAINERS, TRAINER_IMAGES } from '../constants/trainers.constants';
+import { TRAINERS, TRAINER_IMAGES } from '../../constants/trainers.constants';
 import { Award, Dumbbell, Heart } from 'lucide-react';
 import ExpandableGallery from '@/core/components/expandable-gallery';
 

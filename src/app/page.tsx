@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/core/components/ui/button";
 import { useScrollAnimation } from "@/core/lib/useScrollAnimation";
-import { TrainersGallery } from "@/features/trainers/components/TrainersGallery";
+import { TrainersGallery } from "@/features/trainers/landing/components/TrainersGallery";
 import { useEffect, useState } from "react";
 import Testimonials from "@/features/testimonials/components/Testimonials";
 import HeroSection from "@/features/about-us/components/hero-section";

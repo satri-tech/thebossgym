@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { TRAINERS } from '../constants/trainers.constants';
+import { TRAINERS } from '../../constants/trainers.constants';
 import { Award, Dumbbell, Heart } from 'lucide-react';
 
 export function TrainersCards() {
