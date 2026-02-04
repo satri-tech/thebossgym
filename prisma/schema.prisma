@@ -103,6 +103,7 @@ model Trainer {
   experience  String?
   description String?
   image       String?
+  order       Int                  @default(0)
   socialMedia TrainerSocialMedia[]
 }
 
@@ -112,7 +113,7 @@ model TrainerSocialMedia {
   link      String
   icon      String?
   trainerId String?
-  trainer   Trainer? @relation(fields: [trainerId], references: [id])
+  trainer   Trainer? @relation(fields: [trainerId], references: [id], onDelete: Cascade)
 }
 
 model Testimonial {

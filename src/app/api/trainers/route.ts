@@ -7,6 +7,9 @@ export async function GET() {
       include: {
         socialMedia: true,
       },
+      orderBy: {
+        order: "asc",
+      },
     });
     return successResponse(trainers, "Trainers retrieved successfully");
   } catch (error) {

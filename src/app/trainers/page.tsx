@@ -1,5 +1,5 @@
 import React from 'react';
-import { MinimalTrainers } from '@/features/trainers/components/MinimalTrainers';
+import { MinimalTrainers } from '@/features/trainers/landing/components/MinimalTrainers';
 
 const TrainersPage = () => {
   return (

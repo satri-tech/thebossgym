@@ -1,18 +1,6 @@
-export interface Trainer {
-  name: string;
-  title: string;
-  specialties: string[];
-  bio: string;
-  image: string;
-  experience: string;
-  social?: {
-    instagram?: string;
-    twitter?: string;
-    linkedin?: string;
-  };
-}
+import { LandingTrainer } from "../../types/trainers.types";
 
-export const TRAINERS: Trainer[] = [
+export const TRAINERS: LandingTrainer[] = [
   {
     name: 'Mike Johnson',
     title: 'Head Boxing Coach',

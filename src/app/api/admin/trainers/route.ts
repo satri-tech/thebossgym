@@ -16,6 +16,9 @@ export async function GET() {
       include: {
         socialMedia: true,
       },
+      orderBy: {
+        order: "asc",
+      },
     });
     return successResponse(trainers, "Trainers retrieved successfully");
   } catch (error) {
@@ -36,9 +39,18 @@ export async function POST(request: NextRequest) {
 
     const { socialMedia, ...trainerData } = validatedData;
 
+    // Get the current max order
+    const maxOrderTrainer = await prisma.trainer.findFirst({
+      orderBy: { order: "desc" },
+      select: { order: true },
+    });
+
+    const newOrder = maxOrderTrainer ? maxOrderTrainer.order + 1 : 0;
+
     const newTrainer = await prisma.trainer.create({
       data: {
         ...trainerData,
+        order: newOrder,
         socialMedia: {
           create: socialMedia,
         },
