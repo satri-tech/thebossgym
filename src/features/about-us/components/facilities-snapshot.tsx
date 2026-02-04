@@ -18,7 +18,7 @@ const FacilitiesSnapshot = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {[
-                        { title: "", desc: "" },
+                        { title: "Strength Zone", desc: "Olympic platforms & premium equipment" },
                         { title: "Cardio Theater", desc: "State-of-the-art machines with entertainment" },
                         { title: "Functional Area", desc: "Battle ropes, sleds, and agility training" },
                         { title: "Recovery Lounge", desc: "Massage chairs, sauna, and cold plunge" },

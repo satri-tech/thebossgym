@@ -37,12 +37,23 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = createServiceSchema.parse(body);
 
-    const existingOrder = await prisma.service.findFirst({
-      where: { order: validatedData.order },
-    });
+    // Auto-calculate order if not provided
+    let order = validatedData.order;
+    if (order === undefined || order === null) {
+      const maxOrderService = await prisma.service.findFirst({
+        orderBy: { order: "desc" },
+        select: { order: true },
+      });
+      order = maxOrderService ? maxOrderService.order + 1 : 0;
+    } else {
+      // Check if order already exists
+      const existingOrder = await prisma.service.findFirst({
+        where: { order },
+      });
 
-    if (existingOrder) {
-      return errorResponse("A service with this order already exists", 409);
+      if (existingOrder) {
+        return errorResponse("A service with this order already exists", 409);
+      }
     }
 
     const { features, ...serviceData } = validatedData;
@@ -50,6 +61,7 @@ export async function POST(request: NextRequest) {
     const newService = await prisma.service.create({
       data: {
         ...serviceData,
+        order,
         features: {
           create: features,
         },

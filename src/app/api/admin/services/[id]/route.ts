@@ -3,7 +3,10 @@ import prisma from "@/core/lib/prisma";
 import { checkAuth } from "@/core/lib/auth/auth-utils";
 import { successResponse, errorResponse, validationError } from "@/core/lib/auth/api-response";
 import { updateServiceSchema } from "@/core/validators/service.validator";
+import { deleteFiles } from "@/core/lib/image/uploadFiles";
 import { ZodError } from "zod";
+
+const SERVICES_FALLBACK_FILENAME = "fallback.jpg";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -58,6 +61,14 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     const body = await request.json();
     const validatedData = updateServiceSchema.parse(body);
 
+    // If image is being updated and old image exists, delete the old one
+    if (validatedData.image && existingService.image && validatedData.image !== existingService.image) {
+      const oldFilename = existingService.image.split("/").pop();
+      if (oldFilename && oldFilename !== SERVICES_FALLBACK_FILENAME) {
+        await deleteFiles([oldFilename], "public/services");
+      }
+    }
+
     if (validatedData.order !== undefined && validatedData.order !== existingService.order) {
       const orderExists = await prisma.service.findFirst({
         where: { order: validatedData.order },
@@ -108,6 +119,14 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
 
     if (!existingService) {
       return errorResponse("Service not found", 404);
+    }
+
+    // Delete the image file if it exists
+    if (existingService.image) {
+      const filename = existingService.image.split("/").pop();
+      if (filename && filename !== SERVICES_FALLBACK_FILENAME) {
+        await deleteFiles([filename], "public/services");
+      }
     }
 
     await prisma.service.delete({

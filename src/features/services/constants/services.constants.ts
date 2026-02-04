@@ -1,5 +1,15 @@
 import { Activity, Dumbbell, Heart, Users, LucideIcon, Droplets, Lock, Music, Flame } from 'lucide-react';
 
+export const SERVICES_CONFIG = {
+  FALLBACK_IMAGE: '/services/d1d74a04-7ffe-44aa-a76e-ed475b9a3b64.jpg',
+  MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB
+  ALLOWED_TYPES: {
+    'image/jpeg': ['.jpg', '.jpeg'],
+    'image/png': ['.png'],
+    'image/webp': ['.webp'],
+  },
+} as const;
+
 export interface Service {
   title: string;
   description: string;
