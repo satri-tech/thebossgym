@@ -3,7 +3,10 @@ import prisma from "@/core/lib/prisma";
 import { checkAuth } from "@/core/lib/auth/auth-utils";
 import { successResponse, errorResponse, validationError } from "@/core/lib/auth/api-response";
 import { updateFacilitiesSchema } from "@/core/validators/facilities.validator";
+import { deleteFiles } from "@/core/lib/image/uploadFiles";
 import { ZodError } from "zod";
+
+const FACILITIES_FALLBACK_FILENAME = "fallback.jpg";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -53,6 +56,14 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     const body = await request.json();
     const validatedData = updateFacilitiesSchema.parse(body);
 
+    // If image is being updated and old image exists, delete the old one
+    if (validatedData.image && existingFacility.image && validatedData.image !== existingFacility.image) {
+      const oldFilename = existingFacility.image.split("/").pop();
+      if (oldFilename && oldFilename !== FACILITIES_FALLBACK_FILENAME) {
+        await deleteFiles([oldFilename], "public/facilities");
+      }
+    }
+
     const updatedFacility = await prisma.facilities.update({
       where: { id },
       data: validatedData,
@@ -88,6 +99,14 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
 
     if (!existingFacility) {
       return errorResponse("Facility not found", 404);
+    }
+
+    // Delete the image file if it exists
+    if (existingFacility.image) {
+      const filename = existingFacility.image.split("/").pop();
+      if (filename && filename !== FACILITIES_FALLBACK_FILENAME) {
+        await deleteFiles([filename], "public/facilities");
+      }
     }
 
     await prisma.facilities.delete({
