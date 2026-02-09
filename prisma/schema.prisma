@@ -188,3 +188,16 @@ model PlanFeature {
   @@index([featureId])
 }
 
+model GalleryImage {
+  id        String   @id @default(uuid())
+  imageUrl  String
+  alt       String
+  width     Int
+  height    Int
+  tags      String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([tags])
+}
+
