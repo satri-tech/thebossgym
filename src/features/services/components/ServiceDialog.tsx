@@ -85,6 +85,8 @@ export function ServiceDialog({
   const handleImageSelect = (file: File | null) => {
     setImageFile(file);
     if (!file) {
+      // When removing image, clear preview to show upload UI
+      setImagePreview(null);
       if (service) {
         setFormImage(SERVICES_CONFIG.FALLBACK_IMAGE);
       } else {
@@ -97,10 +99,10 @@ export function ServiceDialog({
     if (newFeature.trim()) {
       setFeatures((prevFeatures) => [
         ...prevFeatures,
-        { 
+        {
           id: `feature-${Date.now()}-${Math.random()}`,
-          feature: newFeature.trim(), 
-          order: prevFeatures.length 
+          feature: newFeature.trim(),
+          order: prevFeatures.length
         },
       ]);
       setNewFeature("");
@@ -117,7 +119,7 @@ export function ServiceDialog({
 
     // Validate required fields
     const newErrors: Record<string, string> = {};
-    
+
     if (!title.trim()) {
       newErrors.title = "Title is required";
     }
@@ -238,19 +240,12 @@ export function ServiceDialog({
               label="Service Image"
               value={formImage}
               onChange={handleImageSelect}
-              onPreviewChange={(preview) => {
-                if (preview) {
-                  setImagePreview(preview);
-                }
-              }}
+              onPreviewChange={setImagePreview}
               preview={imagePreview}
-              fallbackImage={SERVICES_CONFIG.FALLBACK_IMAGE}
-              isEditing={!!service}
               required={!service}
               maxSize={SERVICES_CONFIG.MAX_FILE_SIZE}
               acceptedFormats={Object.keys(SERVICES_CONFIG.ALLOWED_TYPES)}
               helpText="Supported formats: JPG, PNG, WebP (Max 5MB)"
-              hideFallbackPreview={true}
               error={errors.image}
               showRequiredError={!!errors.image}
             />

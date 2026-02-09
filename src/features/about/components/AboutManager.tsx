@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAbout } from "../hooks/useAbout";
 import { Button } from "@/core/components/ui/button";
 import { Input } from "@/core/components/ui/input";
 import { Label } from "@/core/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/core/components/ui/card";
 import { Skeleton } from "@/core/components/ui/skeleton";
-import { Info, Upload, X, Save } from "lucide-react";
+import { Info, Save } from "lucide-react";
 import { Alert, AlertDescription } from "@/core/components/ui/alert";
 import { toast } from "sonner";
+import { ImageUploadField } from "@/core/components/image-upload";
 
 export function AboutManager() {
   const { about, loading, error, updateAbout } = useAbout();
@@ -24,7 +25,6 @@ export function AboutManager() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Initialize form data when about data is loaded
   useEffect(() => {
@@ -55,45 +55,6 @@ export function AboutManager() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Validate file type
-      if (!file.type.startsWith("image/")) {
-        toast.error("Invalid file type", {
-          description: "Please select a valid image file (JPG, PNG, WebP, or GIF)",
-        });
-        return;
-      }
-
-      // Validate file size (5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error("File too large", {
-          description: "Image size must be less than 5MB",
-        });
-        return;
-      }
-
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-      toast.success("Image selected", {
-        description: "Image ready to upload. Click 'Save Changes' to update.",
-      });
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setImageFile(null);
-    setImagePreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -132,9 +93,6 @@ export function AboutManager() {
         description: "About section updated successfully",
       });
       setImageFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
     } else {
       toast.error("Failed to update", {
         id: toastId,
@@ -302,53 +260,15 @@ export function AboutManager() {
             </div>
 
             {/* Image Upload */}
-            <div className="space-y-2">
-              <Label>Image</Label>
-              <div className="space-y-4">
-                {imagePreview && (
-                  <div className="relative w-full max-w-md">
-                    <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={imagePreview}
-                        alt="About section preview"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="icon"
-                      className="absolute top-2 right-2"
-                      onClick={handleRemoveImage}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                )}
-
-                <div className="flex items-center gap-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    {imagePreview ? "Change Image" : "Upload Image"}
-                  </Button>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageSelect}
-                    className="hidden"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Max size: 5MB. Formats: JPG, PNG, WebP, GIF
-                  </p>
-                </div>
-              </div>
-            </div>
+            <ImageUploadField
+              label="About Section Image"
+              value={about?.image}
+              preview={imagePreview}
+              onChange={setImageFile}
+              onPreviewChange={setImagePreview}
+              helpText="Max size: 5MB"
+              acceptedFormats={["image/jpeg", "image/png", "image/webp", "image/gif"]}
+            />
 
             {/* Submit Button */}
             <div className="flex justify-end pt-4">

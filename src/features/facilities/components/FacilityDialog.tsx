@@ -58,6 +58,8 @@ export function FacilityDialog({ open, onOpenChange, facility, onSubmit }: Facil
   const handleImageSelect = (file: File | null) => {
     setImageFile(file);
     if (!file) {
+      // When removing image, clear preview to show upload UI
+      setImagePreview(null);
       if (facility) {
         setFormData((prev) => ({ ...prev, image: FACILITIES_FALLBACK_IMAGE_URL }));
       } else {
@@ -136,13 +138,10 @@ export function FacilityDialog({ open, onOpenChange, facility, onSubmit }: Facil
             onChange={handleImageSelect}
             onPreviewChange={setImagePreview}
             preview={imagePreview}
-            fallbackImage={FACILITIES_FALLBACK_IMAGE_URL}
-            isEditing={!!facility}
             required={!facility}
             maxSize={5 * 1024 * 1024}
             acceptedFormats={["image/jpeg", "image/png", "image/webp", "image/gif"]}
             helpText="Max size: 5MB. Formats: JPG, PNG, WebP, GIF"
-            hideFallbackPreview={true}
             error={errors.image}
             showRequiredError={!!errors.image}
           />
