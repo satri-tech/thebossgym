@@ -15,8 +15,17 @@ export async function GET() {
           description: "",
           founderName: "",
           founderPosition: "",
+          founderImage: "/founder/fallback.jpg",
         },
       });
+    }
+
+    // Ensure fallback image if none is set
+    if (!founderMessage.founderImage) {
+      founderMessage = {
+        ...founderMessage,
+        founderImage: "/founder/fallback.jpg",
+      };
     }
 
     return successResponse(founderMessage, "Founder message retrieved successfully");

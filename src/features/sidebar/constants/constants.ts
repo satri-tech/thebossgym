@@ -59,6 +59,11 @@ export const adminSidebarLinks = {
       icon: Info,
     },
     {
+      title: "Founder Message",
+      url: "/admin/founder-message",
+      icon: MessageSquare,
+    },
+    {
       title: "Facilities",
       url: "/admin/facilities",
       icon: Building,

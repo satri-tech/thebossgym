@@ -111,8 +111,8 @@ export function ImageUploadDialog({
               onImageRemove();
             }}
             className={cn(
-              "absolute -top-1 -right-1 w-7 h-7 rounded-full bg-destructive text-destructive-foreground",
-              "flex items-center justify-center shadow-lg hover:bg-destructive/90 transition-colors"
+              "absolute top-0 cursor-pointer right-2 w-7 h-7 rounded-full bg-destructive text-destructive-foreground",
+              "flex items-center justify-center shadow-lg hover:bg-destructive/90 transition-colors z-10"
             )}
             title="Remove image"
           >
