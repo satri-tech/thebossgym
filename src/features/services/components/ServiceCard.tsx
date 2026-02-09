@@ -3,9 +3,15 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Service } from "../types/types";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/core/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/core/components/ui/card";
 import { Button } from "@/core/components/ui/button";
-import { Badge } from "@/core/components/ui/badge";
 import { Edit, Trash2 } from "lucide-react";
 import { SERVICES_CONFIG } from "../constants/services.constants";
 
@@ -16,7 +22,6 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
-  const isFallback = service.image === SERVICES_CONFIG.FALLBACK_IMAGE;
   const [imageSrc, setImageSrc] = useState<string>(service.image);
 
   useEffect(() => {
@@ -24,70 +29,78 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
   }, [service.image]);
 
   return (
-    <Card className="group overflow-hidden gap-4 border-border/60 bg-card/60 pt-0 backdrop-blur supports-backdrop-filter:bg-card/50 hover:shadow-lg hover:shadow-black/20 transition-all duration-200">
+    <Card className="group flex h-full flex-col overflow-hidden border-border bg-card hover:shadow-lg transition-all duration-300">
+      {/* Image */}
       <div className="relative aspect-video w-full overflow-hidden bg-muted">
         <Image
           src={imageSrc}
           alt={service.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
           onError={() => {
             if (imageSrc === SERVICES_CONFIG.FALLBACK_IMAGE) return;
             setImageSrc(SERVICES_CONFIG.FALLBACK_IMAGE);
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/90 via-background/20 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/80 via-background/20 to-transparent" />
       </div>
 
-      <CardHeader className="gap-0">
-        <CardTitle className="line-clamp-2 text-lg leading-snug">
+      {/* Header */}
+      <CardHeader className="gap-1.5 pb-3">
+        <CardTitle className="line-clamp-2 text-lg leading-tight">
           {service.title}
         </CardTitle>
-        <CardDescription className="line-clamp-3 text-sm text-muted-foreground/80">
+        <CardDescription className="line-clamp-3 text-sm text-muted-foreground leading-relaxed">
           {service.description}
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="pt-0">
-        <div className="space-y-2">
-          {service.features.length > 0 && (
-            <div className="border-t border-border/40 pt-3">
-              <p className="text-xs font-medium text-muted-foreground mb-2">
-                Features ({service.features.length})
-              </p>
-              <ul className="space-y-1">
-                {service.features.map((feature) => (
-                  <li key={feature.id} className="text-xs text-muted-foreground">
-                    • {feature.feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <div className="flex gap-2 pt-2">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => onEdit(service)}
-              className="flex-1 bg-muted/50 hover:bg-muted rounded-sm"
-            >
-              <Edit className="h-4 w-4 mr-2" />
-              Edit
-            </Button>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => onDelete(service.id)}
-              className="flex-1 rounded-sm"
-            >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Delete
-            </Button>
+      {/* Content */}
+      <CardContent className="flex-1 pt-0 pb-4">
+        {service.features.length > 0 && (
+          <div className="border-t border-border pt-3">
+            <p className="mb-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+              Features ({service.features.length})
+            </p>
+            <ul className="space-y-1.5 max-h-28 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+              {service.features.map((feature) => (
+                <li
+                  key={feature.id}
+                  className="text-xs text-muted-foreground leading-relaxed flex items-start gap-2"
+                >
+                  <span className="text-primary mt-0.5">•</span>
+                  <span className="flex-1">{feature.feature}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        )}
       </CardContent>
+
+      {/* Footer */}
+      <CardFooter className="mt-auto pt-0 pb-5 px-5">
+        <div className="flex w-full gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onEdit(service)}
+            className="flex-1 h-9"
+          >
+            <Edit className="h-3.5 w-3.5 mr-1.5" />
+            Edit
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onDelete(service.id)}
+            className="flex-1 h-9 text-destructive hover:text-destructive hover:bg-destructive/10"
+          >
+            <Trash2 className="h-3.5 w-3.5 mr-1.5" />
+            Delete
+          </Button>
+        </div>
+      </CardFooter>
     </Card>
   );
 }

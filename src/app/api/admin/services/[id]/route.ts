@@ -79,9 +79,31 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       }
     }
 
+    // Separate features from other data
+    const { features, ...serviceData } = validatedData;
+
+    // Handle features update if provided
+    if (features !== undefined) {
+      // Delete all existing features for this service
+      await prisma.serviceFeature.deleteMany({
+        where: { serviceId: id },
+      });
+
+      // Create new features if any
+      if (features.length > 0) {
+        await prisma.serviceFeature.createMany({
+          data: features.map((f) => ({
+            serviceId: id,
+            feature: f.feature,
+            order: f.order,
+          })),
+        });
+      }
+    }
+
     const updatedService = await prisma.service.update({
       where: { id },
-      data: validatedData,
+      data: serviceData,
       include: {
         features: {
           orderBy: { order: "asc" },

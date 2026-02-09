@@ -18,6 +18,10 @@ export const updateServiceSchema = z.object({
   description: z.string().min(1, "Description cannot be empty").trim().optional(),
   image: z.string().trim().optional(),
   order: z.number().int("Order must be an integer").nonnegative("Order must be a positive number").optional(),
+  features: z.array(z.object({
+    feature: z.string().min(1, "Feature cannot be empty").trim(),
+    order: z.number().int("Order must be an integer").nonnegative("Order must be a positive number"),
+  })).optional(),
 }).refine((data) => Object.keys(data).length > 0, {
   message: "At least one field must be provided",
 });

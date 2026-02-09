@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Trainer, CreateTrainerInput, UpdateTrainerInput } from "../../types/trainers.types";
 import { Button } from "@/core/components/ui/button";
 import { Input } from "@/core/components/ui/input";
@@ -13,10 +13,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/core/components/ui/dialog";
+import { ImageUploadDialog } from "@/core/components/image-upload";
 import { IconPicker } from "./IconPicker";
-import { Plus, Trash2, Camera, User } from "lucide-react";
-import { cn } from "@/core/lib/utils";
-import Image from "next/image";
+import { Plus, Trash2 } from "lucide-react";
 
 interface TrainerDialogProps {
   open: boolean;
@@ -44,7 +43,6 @@ export function TrainerDialog({ open, onOpenChange, trainer, onSubmit }: Trainer
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (trainer) {
@@ -171,74 +169,16 @@ export function TrainerDialog({ open, onOpenChange, trainer, onSubmit }: Trainer
           )}
 
           {/* Profile Image */}
-          <div className="flex flex-col items-center gap-3">
-            <div 
-              className="relative cursor-pointer group"
-              onClick={() => fileInputRef.current?.click()}
-            >
-              <div className={cn(
-                "relative w-32 h-32 rounded-full overflow-hidden bg-muted/50 border-4 border-muted shadow-lg",
-                "transition-all",
-                uploading && "opacity-50 cursor-not-allowed"
-              )}>
-                {formData.image ? (
-                  <Image
-                    src={imageUrl}
-                    alt="Trainer"
-                    fill
-                    className="object-cover"
-                    sizes="128px"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <User className="w-16 h-16 text-muted-foreground/40" />
-                  </div>
-                )}
-              </div>
-              
-              {/* Camera Button */}
-              <div className={cn(
-                "absolute bottom-0 right-0 w-10 h-10 rounded-full bg-primary text-primary-foreground",
-                "flex items-center justify-center shadow-lg transition-transform",
-                "group-hover:scale-110",
-                uploading && "opacity-50"
-              )}>
-                <Camera className="w-5 h-5" />
-              </div>
-              
-              {/* Remove Button */}
-              {formData.image && !uploading && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setFormData({ ...formData, image: "" });
-                  }}
-                  className={cn(
-                    "absolute -top-1 -right-1 w-7 h-7 rounded-full bg-destructive text-destructive-foreground",
-                    "flex items-center justify-center shadow-lg hover:bg-destructive/90 transition-colors"
-                  )}
-                  title="Remove image"
-                >
-                  <span className="text-lg leading-none">×</span>
-                </button>
-              )}
-            </div>
-            <p className="text-sm text-muted-foreground text-center">
-              {uploading ? "Uploading..." : "Click the profile picture to update"}
-            </p>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="hidden"
-              disabled={uploading}
-            />
-            {errors.image && (
-              <p className="text-sm text-destructive">{errors.image}</p>
-            )}
-          </div>
+          <ImageUploadDialog
+            imageUrl={formData.image}
+            fallbackImage="/trainers/fallback.jpg"
+            onImageSelect={handleImageUpload}
+            onImageRemove={() => setFormData({ ...formData, image: "" })}
+            uploading={uploading}
+            error={errors.image}
+            label="Click the profile picture to update"
+            size="md"
+          />
 
           {/* Form Fields */}
           <div className="space-y-4">
