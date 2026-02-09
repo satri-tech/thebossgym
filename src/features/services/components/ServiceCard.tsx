@@ -29,7 +29,7 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
   }, [service.image]);
 
   return (
-    <Card className="group flex h-full flex-col overflow-hidden border-border bg-card hover:shadow-lg transition-all duration-300">
+    <Card className="group flex h-full flex-col overflow-hidden border-border gap-4 py-0 bg-card hover:shadow-lg transition-all duration-300">
       {/* Image */}
       <div className="relative aspect-video w-full overflow-hidden bg-muted">
         <Image
@@ -47,7 +47,7 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
       </div>
 
       {/* Header */}
-      <CardHeader className="gap-1.5 pb-3">
+      <CardHeader className="gap-1.5">
         <CardTitle className="line-clamp-2 text-lg leading-tight">
           {service.title}
         </CardTitle>
@@ -57,7 +57,7 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
       </CardHeader>
 
       {/* Content */}
-      <CardContent className="flex-1 pt-0 pb-4">
+      <CardContent className="flex-1 pt-0 ">
         {service.features.length > 0 && (
           <div className="border-t border-border pt-3">
             <p className="mb-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">

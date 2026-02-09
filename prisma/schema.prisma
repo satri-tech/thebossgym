@@ -24,10 +24,12 @@ enum MembershipTier {
   STANDARD
   PREMIUM
 }
+
 enum BillingCycle {
   MONTHLY
   YEARLY
 }
+
 model User {
   id         String   @id @default(uuid())
   username   String   @unique
@@ -125,64 +127,62 @@ model Testimonial {
   createdAt DateTime @default(now())
 }
 
-
-
 model MembershipPlan {
-  id              String         @id @default(cuid())
-  tier            MembershipTier
-  billingCycle    BillingCycle
-  price           Int            // Price in NPR
-  
+  id           String         @id @default(cuid())
+  tier         MembershipTier
+  billingCycle BillingCycle
+  price        Int // Price in NPR
+
   // Display information
-  name            String         // e.g., "Basic", "Standard", "Premium"
-  description     String?
-  isPopular       Boolean        @default(false)
-  displayOrder    Int            @default(0)
-  isActive        Boolean        @default(true)
-  
+  name         String // e.g., "Basic", "Standard", "Premium"
+  description  String?
+  isPopular    Boolean @default(false)
+  displayOrder Int     @default(0)
+  isActive     Boolean @default(true)
+
   // Relation to features
-  features        PlanFeature[]
-  
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  
+  features PlanFeature[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([tier, billingCycle])
   @@index([tier])
   @@index([displayOrder])
 }
 
 model Feature {
-  id              String         @id @default(cuid())
-  name            String         @unique // e.g., "gym_equipment", "locker_facility"
-  displayName     String         // e.g., "Access to gym equipment", "Locker facility"
-  description     String?
-  displayOrder    Int            @default(0)
-  isActive        Boolean        @default(true)
-  
-  planFeatures    PlanFeature[]
-  
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  
+  id           String  @id @default(cuid())
+  name         String  @unique // e.g., "gym_equipment", "locker_facility"
+  displayName  String // e.g., "Access to gym equipment", "Locker facility"
+  description  String?
+  displayOrder Int     @default(0)
+  isActive     Boolean @default(true)
+
+  planFeatures PlanFeature[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([displayOrder])
 }
 
 model PlanFeature {
-  id              String         @id @default(cuid())
-  
-  planId          String
-  plan            MembershipPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
-  
-  featureId       String
-  feature         Feature        @relation(fields: [featureId], references: [id], onDelete: Cascade)
-  
+  id String @id @default(cuid())
+
+  planId String
+  plan   MembershipPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  featureId String
+  feature   Feature @relation(fields: [featureId], references: [id], onDelete: Cascade)
+
   // Feature availability
-  isIncluded      Boolean        @default(true) // true = checkmark, false = X mark
-  value           String?        // For features with values like "2/month", "Unlimited", "Weekly"
-  
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  
+  isIncluded Boolean @default(true) // true = checkmark, false = X mark
+  value      String? // For features with values like "2/month", "Unlimited", "Weekly"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([planId, featureId])
   @@index([planId])
   @@index([featureId])
@@ -197,7 +197,14 @@ model GalleryImage {
   tags      String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   @@index([tags])
 }
 
+model FAQ {
+  id        String   @id @default(uuid())
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
