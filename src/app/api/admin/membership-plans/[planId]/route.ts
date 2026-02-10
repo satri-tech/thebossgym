@@ -21,11 +21,7 @@ export async function GET(_request: NextRequest, context: RouteContext) {
     const plan = await prisma.membershipPlan.findUnique({
       where: { id: planId },
       include: {
-        features: {
-          include: {
-            feature: true,
-          },
-        },
+        features: true,
       },
     });
 
@@ -60,15 +56,32 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     const body = await request.json();
     const validatedData = updateMembershipPlanSchema.parse(body);
 
+    // Check for uniqueness of tier/billingCycle combination if either is being updated
+    if (validatedData.tier || validatedData.billingCycle) {
+      const tierToCheck = validatedData.tier || existingPlan.tier;
+      const billingCycleToCheck = validatedData.billingCycle || existingPlan.billingCycle;
+
+      const duplicatePlan = await prisma.membershipPlan.findFirst({
+        where: {
+          tier: tierToCheck,
+          billingCycle: billingCycleToCheck,
+          id: { not: planId }, // Exclude current plan
+        },
+      });
+
+      if (duplicatePlan) {
+        return errorResponse(
+          `A ${tierToCheck.toLowerCase()} ${billingCycleToCheck.toLowerCase()} plan already exists`,
+          400
+        );
+      }
+    }
+
     const updatedPlan = await prisma.membershipPlan.update({
       where: { id: planId },
       data: validatedData,
       include: {
-        features: {
-          include: {
-            feature: true,
-          },
-        },
+        features: true,
       },
     });
 

@@ -6,11 +6,7 @@ export async function GET() {
     const plans = await prisma.membershipPlan.findMany({
       where: { isActive: true },
       include: {
-        features: {
-          include: {
-            feature: true,
-          },
-        },
+        features: true,
       },
       orderBy: { displayOrder: "asc" },
     });

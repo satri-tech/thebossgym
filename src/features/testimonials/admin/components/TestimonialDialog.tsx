@@ -77,7 +77,7 @@ export function TestimonialDialog({
       }
 
       setFormData({ ...formData, image: uploadResult.url });
-      setPreviewUrl(uploadResult.url);
+      setPreviewUrl(uploadResult.url || "");
       setErrors({ ...errors, image: "" });
     } catch (error) {
       setErrors({ image: "Failed to upload image" });

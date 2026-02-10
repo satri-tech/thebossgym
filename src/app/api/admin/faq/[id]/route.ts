@@ -27,7 +27,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     };
 
     if (!question && !answer) {
-      return validationError("At least one of question or answer is required");
+      return validationError({ error: "At least one of question or answer is required" });
     }
 
     const faq = await prisma.fAQ.update({
@@ -65,5 +65,6 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
     return errorResponse("Failed to delete FAQ", 500);
   }
 }
+
 
 
