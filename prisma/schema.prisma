@@ -151,41 +151,20 @@ model MembershipPlan {
   @@index([displayOrder])
 }
 
-model Feature {
-  id           String  @id @default(cuid())
-  name         String  @unique // e.g., "gym_equipment", "locker_facility"
-  displayName  String // e.g., "Access to gym equipment", "Locker facility"
-  description  String?
-  displayOrder Int     @default(0)
-  isActive     Boolean @default(true)
-
-  planFeatures PlanFeature[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([displayOrder])
-}
-
 model PlanFeature {
   id String @id @default(cuid())
 
   planId String
   plan   MembershipPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
 
-  featureId String
-  feature   Feature @relation(fields: [featureId], references: [id], onDelete: Cascade)
-
-  // Feature availability
+  // Feature text
+  text       String // e.g., "Access to gym equipment", "Personal trainer sessions (2/month)"
   isIncluded Boolean @default(true) // true = checkmark, false = X mark
-  value      String? // For features with values like "2/month", "Unlimited", "Weekly"
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([planId, featureId])
   @@index([planId])
-  @@index([featureId])
 }
 
 model GalleryImage {

@@ -11,3 +11,4 @@ export type CreateFacilityInput = CreateFacilitiesInput;
 export type UpdateFacilityInput = UpdateFacilitiesInput;
 
 
+

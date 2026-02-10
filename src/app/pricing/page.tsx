@@ -6,85 +6,42 @@ import PricingToggle from "@/features/pricing/components/PricingToggle";
 import PricingCard from "@/features/pricing/components/PricingCard";
 import FAQItem from "@/features/pricing/components/FAQItem";
 import BackgroundEffects from "@/features/pricing/components/BackgroundEffects";
-
-const pricingPlans = [
-  {
-    name: "Basic",
-    monthlyPrice: 2000,
-    yearlyPrice: 19200,
-    features: [
-      { text: "Access to gym equipment", included: true },
-      { text: "Locker facility", included: true },
-      { text: "Basic workout guidance", included: true },
-      { text: "Personal trainer sessions", included: false },
-      { text: "Nutrition consultation", included: false },
-      { text: "Group fitness classes", included: false },
-      { text: "Sauna & steam room", included: false },
-      { text: "Guest passes", included: false },
-    ],
-  },
-  {
-    name: "Standard",
-    monthlyPrice: 4000,
-    yearlyPrice: 38400,
-    isPopular: true,
-    features: [
-      { text: "Access to gym equipment", included: true },
-      { text: "Locker facility", included: true },
-      { text: "Basic workout guidance", included: true },
-      { text: "Personal trainer sessions (2/month)", included: true },
-      { text: "Nutrition consultation", included: true },
-      { text: "Group fitness classes", included: true },
-      { text: "Sauna & steam room", included: false },
-      { text: "Guest passes (2/month)", included: true },
-    ],
-  },
-  {
-    name: "Premium",
-    monthlyPrice: 7000,
-    yearlyPrice: 67200,
-    features: [
-      { text: "Access to gym equipment", included: true },
-      { text: "Locker facility", included: true },
-      { text: "Basic workout guidance", included: true },
-      { text: "Personal trainer sessions (Unlimited)", included: true },
-      { text: "Nutrition consultation (Weekly)", included: true },
-      { text: "Group fitness classes", included: true },
-      { text: "Sauna & steam room", included: true },
-      { text: "Guest passes (5/month)", included: true },
-    ],
-  },
-];
-
-const faqs = [
-  {
-    question: "Can I switch plans anytime?",
-    answer: "Yes! You can upgrade or downgrade your membership plan at any time. Changes will be reflected in your next billing cycle.",
-  },
-  {
-    question: "Is there a joining fee?",
-    answer: "We have a one-time joining fee of Rs 1,000 for all new members. This covers your membership card, initial fitness assessment, and orientation session.",
-  },
-  {
-    question: "What if I need to freeze my membership?",
-    answer: "You can freeze your membership for up to 2 months per year for medical or travel reasons. A small administrative fee of Rs 500 per month applies.",
-  },
-  {
-    question: "Do you offer student or senior citizen discounts?",
-    answer: "Yes! We offer 15% discount for students (with valid ID) and 20% discount for senior citizens (60+ years). These discounts apply to all membership plans.",
-  },
-  {
-    question: "What are the gym operating hours?",
-    answer: "We're open 7 days a week from 5:00 AM to 10:00 PM. Premium members get 24/7 access with their membership card.",
-  },
-  {
-    question: "Can I get a refund if I cancel?",
-    answer: "Monthly memberships can be cancelled with 30 days notice. Yearly memberships are non-refundable but can be transferred to another person with approval.",
-  },
-];
+import { Spinner } from "@/core/components/ui/spinner";
+import { usePricingPublic } from "@/features/pricing/hooks/usePricingPublic";
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false);
+  const { plans, loading } = usePricingPublic();
+
+  // Group plans by tier and billing cycle
+  const monthlyPlans = plans.filter((p) => p.billingCycle === "MONTHLY");
+  const yearlyPlans = plans.filter((p) => p.billingCycle === "YEARLY");
+
+  // Create a map of plans by tier
+  const plansByTier = monthlyPlans.reduce((acc, monthlyPlan) => {
+    const yearlyPlan = yearlyPlans.find((p) => p.tier === monthlyPlan.tier);
+    acc[monthlyPlan.tier] = {
+      monthly: monthlyPlan,
+      yearly: yearlyPlan,
+    };
+    return acc;
+  }, {} as Record<string, { monthly: any; yearly: any }>);
+
+  const displayPlans = Object.values(plansByTier)
+    .filter((p) => p.monthly || p.yearly)
+    .sort((a, b) => {
+      const orderA = a.monthly?.displayOrder ?? a.yearly?.displayOrder ?? 0;
+      const orderB = b.monthly?.displayOrder ?? b.yearly?.displayOrder ?? 0;
+      return orderA - orderB;
+    });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <Spinner className="w-12 h-12" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
@@ -119,52 +76,36 @@ export default function PricingPage() {
         {/* Pricing Cards */}
         <section className="pb-20 px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {pricingPlans.map((plan, index) => (
-                <PricingCard
-                  key={plan.name}
-                  name={plan.name}
-                  monthlyPrice={plan.monthlyPrice}
-                  yearlyPrice={plan.yearlyPrice}
-                  isYearly={isYearly}
-                  features={plan.features}
-                  isPopular={plan.isPopular}
-                  index={index}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
+            {displayPlans.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {displayPlans.map((planGroup, index) => {
+                  const plan = isYearly ? planGroup.yearly : planGroup.monthly;
+                  if (!plan) return null;
 
-        {/* FAQ Section */}
-        <section className="py-20 px-4">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 anton-font">
-                Frequently Asked{" "}
-                <span className="gold-text">Questions</span>
-              </h2>
-              <p className="text-gray-400 text-lg">
-                Got questions? We've got answers.
-              </p>
-            </motion.div>
+                  const features = plan.features.map((feature: any) => ({
+                    text: feature.text,
+                    included: feature.isIncluded,
+                  }));
 
-            <div className="bg-gradient-to-br from-zinc-900 to-black rounded-2xl p-8 border border-zinc-800">
-              {faqs.map((faq, index) => (
-                <FAQItem
-                  key={index}
-                  question={faq.question}
-                  answer={faq.answer}
-                  index={index}
-                />
-              ))}
-            </div>
+                  return (
+                    <PricingCard
+                      key={plan.id}
+                      name={plan.name}
+                      monthlyPrice={planGroup.monthly?.price || 0}
+                      yearlyPrice={planGroup.yearly?.price || 0}
+                      isYearly={isYearly}
+                      features={features}
+                      isPopular={plan.isPopular}
+                      index={index}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <p className="text-gray-400 text-lg">No pricing plans available at the moment.</p>
+              </div>
+            )}
           </div>
         </section>
 

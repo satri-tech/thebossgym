@@ -14,11 +14,7 @@ export async function GET() {
 
     const plans = await prisma.membershipPlan.findMany({
       include: {
-        features: {
-          include: {
-            feature: true,
-          },
-        },
+        features: true,
       },
       orderBy: { displayOrder: "asc" },
     });
@@ -52,21 +48,26 @@ export async function POST(request: NextRequest) {
       return errorResponse("A plan with this tier and billing cycle already exists", 409);
     }
 
-    const { features, ...planData } = validatedData;
+    // Calculate display order - get the highest order and add 1
+    const maxOrderPlan = await prisma.membershipPlan.findFirst({
+      orderBy: { displayOrder: "desc" },
+      select: { displayOrder: true },
+    });
+
+    const displayOrder = (maxOrderPlan?.displayOrder ?? -1) + 1;
+
+    const { features, displayOrder: _, ...planData } = validatedData;
 
     const newPlan = await prisma.membershipPlan.create({
       data: {
         ...planData,
+        displayOrder,
         features: {
           create: features,
         },
       },
       include: {
-        features: {
-          include: {
-            feature: true,
-          },
-        },
+        features: true,
       },
     });
 

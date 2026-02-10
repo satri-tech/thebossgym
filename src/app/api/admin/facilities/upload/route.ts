@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { checkAuth } from "@/core/lib/auth/auth-utils";
 import { successResponse, errorResponse } from "@/core/lib/auth/api-response";
-import { uploadSingleFile, deleteFiles } from "@/core/lib/image/uploadFiles";
+import { uploadSingleFile } from "@/core/lib/image/uploadFiles";
 
 export async function POST(request: NextRequest) {
   try {
@@ -49,5 +49,6 @@ export async function POST(request: NextRequest) {
     return errorResponse("Failed to upload image", 500);
   }
 }
+
 
 

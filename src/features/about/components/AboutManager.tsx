@@ -262,7 +262,7 @@ export function AboutManager() {
             {/* Image Upload */}
             <ImageUploadField
               label="About Section Image"
-              value={about?.image}
+              value={about?.image || undefined}
               preview={imagePreview}
               onChange={setImageFile}
               onPreviewChange={setImagePreview}

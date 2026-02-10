@@ -1,3 +1,9 @@
+interface ITestimonial{
+  quote: string;
+  name: string;
+  role: string;
+  image: string;
+}
 export const TESTIMONIALS: ITestimonial[] = [
   {
     quote:

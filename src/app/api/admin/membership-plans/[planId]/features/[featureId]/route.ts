@@ -2,12 +2,16 @@ import { NextRequest } from "next/server";
 import prisma from "@/core/lib/prisma";
 import { checkAuth } from "@/core/lib/auth/auth-utils";
 import { successResponse, errorResponse, validationError } from "@/core/lib/auth/api-response";
-import { updatePlanFeatureSchema } from "@/core/validators/plan-feature.validator";
-import { ZodError } from "zod";
+import { ZodError, z } from "zod";
 
 type RouteContext = {
   params: Promise<{ planId: string; featureId: string }>;
 };
+
+const updateFeatureSchema = z.object({
+  text: z.string().min(1, "Feature text is required").optional(),
+  isIncluded: z.boolean().optional(),
+});
 
 export async function PATCH(request: NextRequest, context: RouteContext) {
   try {
@@ -16,38 +20,16 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       return authCheck.response;
     }
 
-    const { planId, featureId } = await context.params;
-
-    const existingPlanFeature = await prisma.planFeature.findUnique({
-      where: {
-        planId_featureId: {
-          planId,
-          featureId,
-        },
-      },
-    });
-
-    if (!existingPlanFeature) {
-      return errorResponse("Plan feature not found", 404);
-    }
-
+    const { featureId } = await context.params;
     const body = await request.json();
-    const validatedData = updatePlanFeatureSchema.parse(body);
+    const validatedData = updateFeatureSchema.parse(body);
 
-    const updatedPlanFeature = await prisma.planFeature.update({
-      where: {
-        planId_featureId: {
-          planId,
-          featureId,
-        },
-      },
+    const planFeature = await prisma.planFeature.update({
+      where: { id: featureId },
       data: validatedData,
-      include: {
-        feature: true,
-      },
     });
 
-    return successResponse(updatedPlanFeature, "Plan feature updated successfully");
+    return successResponse(planFeature, "Feature updated successfully");
   } catch (error) {
     if (error instanceof ZodError) {
       const errors = error.issues.reduce((acc: Record<string, string>, err) => {
@@ -57,8 +39,8 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       }, {});
       return validationError(errors);
     }
-    console.error("Error updating plan feature:", error);
-    return errorResponse("Failed to update plan feature", 500);
+    console.error("Error updating feature:", error);
+    return errorResponse("Failed to update feature", 500);
   }
 }
 
@@ -69,36 +51,15 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
       return authCheck.response;
     }
 
-    const { planId, featureId } = await context.params;
-
-    const existingPlanFeature = await prisma.planFeature.findUnique({
-      where: {
-        planId_featureId: {
-          planId,
-          featureId,
-        },
-      },
-    });
-
-    if (!existingPlanFeature) {
-      return errorResponse("Plan feature not found", 404);
-    }
+    const { featureId } = await context.params;
 
     await prisma.planFeature.delete({
-      where: {
-        planId_featureId: {
-          planId,
-          featureId,
-        },
-      },
+      where: { id: featureId },
     });
 
-    return successResponse(
-      { planId, featureId, deleted: true },
-      "Feature removed from plan successfully"
-    );
+    return successResponse({ id: featureId, deleted: true }, "Feature removed from plan successfully");
   } catch (error) {
-    console.error("Error removing feature from plan:", error);
-    return errorResponse("Failed to remove feature from plan", 500);
+    console.error("Error deleting feature:", error);
+    return errorResponse("Failed to delete feature", 500);
   }
 }

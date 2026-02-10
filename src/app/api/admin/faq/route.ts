@@ -41,7 +41,10 @@ export async function POST(request: NextRequest) {
     };
 
     if (!question || !answer) {
-      return validationError("Question and answer are required");
+      return validationError({ 
+        question: !question ? "Question is required" : "",
+        answer: !answer ? "Answer is required" : ""
+      });
     }
 
     const faq = await prisma.fAQ.create({
@@ -54,5 +57,6 @@ export async function POST(request: NextRequest) {
     return errorResponse("Failed to create FAQ", 500);
   }
 }
+
 
 
