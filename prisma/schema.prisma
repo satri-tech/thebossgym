@@ -187,3 +187,54 @@ model FAQ {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model ContactInfo {
+  id Int @id @default(1) // Singleton pattern - always 1
+
+  // Phone
+  phone      String
+  phoneLabel String @default("Get in touch with our team for immediate assistance.")
+
+  // Address
+  address      String
+  addressLabel String @default("Come visit our state-of-the-art facility in Pokhara.")
+
+  // Email
+  email      String
+  emailLabel String @default("Send us an email and we'll respond within 24 hours.")
+
+  // Social Media Links
+  instagram String?
+  facebook  String?
+  linkedin  String?
+  twitter   String?
+  youtube   String?
+
+  updatedAt DateTime @updatedAt
+}
+
+model MessageCategory {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  messages  Message[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  name       String
+  email      String
+  phone      String
+  message    String   @db.Text
+  categoryId String
+  category   MessageCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+

@@ -1,0 +1,52 @@
+import { NextRequest, NextResponse } from 'next/server';
+import prisma from '@/core/lib/prisma';
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const body = await req.json();
+    const { isRead } = body;
+
+    const message = await prisma.message.update({
+      where: { id },
+      data: {
+        isRead: isRead !== undefined ? isRead : undefined,
+      },
+      include: {
+        category: true,
+      },
+    });
+
+    return NextResponse.json(message);
+  } catch (error) {
+    console.error('Error updating message:', error);
+    return NextResponse.json(
+      { error: 'Failed to update message' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+
+    await prisma.message.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting message:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete message' },
+      { status: 500 }
+    );
+  }
+}
