@@ -5,17 +5,21 @@ import { motion } from "framer-motion";
 import BackgroundShapes from "@/features/gallery/components/BackgroundShapes";
 import { ImageGallery } from "@/features/gallery/components/image-gallery";
 import { TagFilter } from "@/features/gallery/components/tag-filter";
-import { GALLERY_IMAGES, GALLERY_TAGS } from "@/core/constants/gallery";
+import { useGalleryPublic } from "@/features/gallery/hooks/useGalleryPublic";
+import { GALLERY_TAGS, type GalleryImage } from "@/core/constants/gallery";
+
+const GALLERY_TAGS_ARRAY = Array.from(GALLERY_TAGS);
 
 export default function GalleryPage() {
   const [activeTag, setActiveTag] = useState<string>('All');
+  const { images, loading } = useGalleryPublic();
 
-  const filteredImages = useMemo(() => {
+  const filteredImages: GalleryImage[] = useMemo(() => {
     if (activeTag === 'All') {
-      return GALLERY_IMAGES;
+      return images;
     }
-    return GALLERY_IMAGES.filter((image) => image.tags.includes(activeTag));
-  }, [activeTag]);
+    return images.filter((image) => image.tags.includes(activeTag));
+  }, [activeTag, images]);
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
@@ -48,7 +52,7 @@ export default function GalleryPage() {
         <section className="px-4 pb-8">
           <div className="max-w-7xl mx-auto">
             <TagFilter
-              tags={GALLERY_TAGS}
+              tags={GALLERY_TAGS_ARRAY}
               activeTag={activeTag}
               onTagChange={setActiveTag}
             />
@@ -56,21 +60,29 @@ export default function GalleryPage() {
         </section>
 
         {/* Gallery */}
-        <section>
-          <ImageGallery images={filteredImages} />
+        <section className="px-4">
+          {loading ? (
+            <div className="text-center py-20">
+              <p className="text-gray-500 text-lg">Loading gallery...</p>
+            </div>
+          ) : filteredImages.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-7xl mx-auto text-center py-12"
+            >
+              <h3 className="text-xl font-bold mb-2 gold-text">Coming Soon</h3>
+              <p className="text-gray-400">
+                More {activeTag.toLowerCase()} content is on the way.
+              </p>
+            </motion.div>
+          ) : (
+            <div className="max-w-7xl mx-auto">
+              <ImageGallery images={filteredImages} />
+            </div>
+          )}
         </section>
-
-        {filteredImages.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
-          >
-            <p className="text-gray-500 text-lg">
-              No images found for this category.
-            </p>
-          </motion.div>
-        )}
       </div>
     </div>
   );

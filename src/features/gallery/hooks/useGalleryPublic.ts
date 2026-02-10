@@ -1,15 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-export interface GalleryImage {
-  id: string;
-  imageUrl: string;
-  alt: string;
-  width: number;
-  height: number;
-  tags: string[];
-}
+import type { GalleryImage } from "@/core/constants/gallery";
 
 export function useGalleryPublic() {
   const [images, setImages] = useState<GalleryImage[]>([]);
@@ -23,7 +15,16 @@ export function useGalleryPublic() {
         const data = await response.json();
 
         if (data.success) {
-          setImages(data.data);
+          // Map API response to match GalleryImage interface
+          const mappedImages = data.data.map((img: any) => ({
+            id: img.id,
+            src: img.imageUrl,
+            alt: img.alt,
+            width: img.width,
+            height: img.height,
+            tags: img.tags || [],
+          }));
+          setImages(mappedImages);
         }
       } catch (error) {
         console.error("Error fetching gallery images:", error);
