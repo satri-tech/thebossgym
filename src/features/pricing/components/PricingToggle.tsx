@@ -15,7 +15,7 @@ export default function PricingToggle({ isYearly, onToggle }: PricingToggleProps
       </span>
       <button
         onClick={onToggle}
-        className="relative w-20 h-10 bg-zinc-800 rounded-full p-1 cursor-pointer border border-zinc-700 hover:border-[#d4af37] transition-colors"
+        className="relative w-20 h-10 bg-zinc-800 rounded-full p-1 cursor-pointer hover:bg-zinc-700 transition-colors"
         aria-label="Toggle pricing period"
       >
         <motion.div
