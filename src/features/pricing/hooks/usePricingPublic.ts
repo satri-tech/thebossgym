@@ -1,29 +1,55 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
 import type { MembershipPlan } from "../admin/types/types";
 
-export function usePricingPublic() {
+interface UsePricingPublicReturn {
+  plans: MembershipPlan[];
+  loading: boolean;
+  error: string | null;
+}
+
+export function usePricingPublic(): UsePricingPublicReturn {
   const [plans, setPlans] = useState<MembershipPlan[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const plansRes = await fetch("/api/membership-plans");
+  const fetchPlans = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        if (plansRes.ok) {
-          const plansData = await plansRes.json();
-          setPlans(plansData.data || []);
-        }
-      } catch (error) {
-        console.error("Error fetching pricing data:", error);
-      } finally {
-        setLoading(false);
+      const response = await fetch("/api/membership-plans", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch plans: ${response.statusText}`);
       }
-    };
 
-    fetchData();
+      const data = await response.json();
+
+      if (data.success && Array.isArray(data.data)) {
+        setPlans(data.data);
+      } else {
+        setPlans([]);
+      }
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Failed to fetch pricing plans";
+      setError(errorMessage);
+      console.error("Error fetching pricing data:", err);
+      setPlans([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return { plans, loading };
+  useEffect(() => {
+    fetchPlans();
+  }, [fetchPlans]);
+
+  return { plans, loading, error };
 }

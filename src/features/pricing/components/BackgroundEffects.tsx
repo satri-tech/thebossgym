@@ -47,29 +47,7 @@ export default function BackgroundEffects() {
         }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c9a227] rounded-full blur-[180px] opacity-5"
       />
-
-      {/* Animated Lines */}
-      <div className="absolute inset-0">
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0.1, scaleX: 0 }}
-            animate={{ opacity: [0.1, 0.2, 0.1], scaleX: [0, 1, 0] }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              delay: i * 2,
-              ease: "easeInOut",
-            }}
-            className="absolute h-px bg-gradient-to-r from-transparent via-[#d4af37] to-transparent"
-            style={{
-              top: `${30 + i * 20}%`,
-              left: 0,
-              right: 0,
-            }}
-          />
-        ))}
-      </div>
+   
     </div>
   );
 }
