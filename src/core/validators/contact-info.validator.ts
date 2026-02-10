@@ -15,9 +15,9 @@ export const contactInfoValidator = z.object({
 });
 
 export const contactInfoUpdateValidator = z.object({
-  phone: z.string().min(1, "Phone number is required").optional(),
+  phone: z.string().optional(),
   phoneLabel: z.string().optional(),
-  address: z.string().min(1, "Address is required").optional(),
+  address: z.string().optional(),
   addressLabel: z.string().optional(),
   email: z.string().email("Invalid email address").or(z.literal("")).optional(),
   emailLabel: z.string().optional(),

@@ -1,18 +1,31 @@
-import { Skeleton, CardSkeleton, TextSkeleton } from "@/features/loading/components/loading"
+'use client';
 
-export default function page() {
-    return (
-        <div className="p-6 space-y-6">
-            <p className="text-3xl font-semibold">
-                Contact Message Page
-            </p>
-            <Skeleton variant="text" width="30%" height={40} />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <CardSkeleton />
-                <CardSkeleton />
-                <CardSkeleton />
-            </div>
-            <TextSkeleton lines={5} />
-        </div>
-    )
+import { MessagesTable } from '@/features/contact/messages/admin/components/MessagesTable';
+import { CategoriesTable } from '@/features/contact/messages/admin/components/CategoriesTable';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/core/components/ui/tabs';
+
+export default function MessagesPage() {
+  return (
+    <div className="p-6">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Contact Messages</h1>
+        <p className="text-zinc-500">Manage incoming messages and message categories</p>
+      </div>
+
+      <Tabs defaultValue="messages" className="space-y-6">
+        <TabsList>
+          <TabsTrigger value="messages">Messages</TabsTrigger>
+          <TabsTrigger value="categories">Categories</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="messages">
+          <MessagesTable />
+        </TabsContent>
+
+        <TabsContent value="categories">
+          <CategoriesTable />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
 }
