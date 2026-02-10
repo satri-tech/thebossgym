@@ -1,16 +1,33 @@
 
-import { Mail, Phone } from "lucide-react";
-import { Button } from "@/core/components/ui/button";
+'use client';
+
+import { Mail, Phone, Instagram, Facebook, Linkedin, Twitter, Youtube } from "lucide-react";
+import { useContactInfo } from "@/features/contact/client/hooks/useContactInfo";
 import {
     FOOTER_BRAND,
-    FOOTER_SOCIAL_LINKS,
     FOOTER_QUICK_LINKS,
-    FOOTER_CONTACT_INFO,
-    FOOTER_NEWSLETTER,
     FOOTER_COPYRIGHT,
 } from "../constants/constants";
 
+const SOCIAL_ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+    instagram: Instagram,
+    facebook: Facebook,
+    linkedin: Linkedin,
+    twitter: Twitter,
+    youtube: Youtube,
+};
+
 const Footer = () => {
+    const { contactInfo } = useContactInfo();
+
+    const socialLinks = contactInfo ? [
+        { key: 'instagram', label: 'Instagram', href: contactInfo.instagram },
+        { key: 'facebook', label: 'Facebook', href: contactInfo.facebook },
+        { key: 'linkedin', label: 'LinkedIn', href: contactInfo.linkedin },
+        { key: 'twitter', label: 'Twitter', href: contactInfo.twitter },
+        { key: 'youtube', label: 'YouTube', href: contactInfo.youtube },
+    ].filter(social => social.href) : [];
+
     return (
         <footer className="relative bg-black border-t border-zinc-900 pt-20 pb-10 px-6">
             {/* Background Text - Bottom */}
@@ -29,17 +46,21 @@ const Footer = () => {
 
                         {/* Social Icons */}
                         <div className="flex items-center gap-2">
-                            {FOOTER_SOCIAL_LINKS.map((social) => (
-                                <a
-                                    key={social.label}
-                                    href={social.href}
-                                    aria-label={social.label}
-                                    className="group relative w-10 h-10 flex items-center justify-center bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-primary/50 hover:bg-zinc-900 transition-all duration-300"
-                                >
-                                    <social.icon className="w-4 h-4 text-zinc-500 group-hover:text-primary transition-colors duration-300" />
-
-                                </a>
-                            ))}
+                            {socialLinks.map((social) => {
+                                const IconComponent = SOCIAL_ICON_MAP[social.key];
+                                return (
+                                    <a
+                                        key={social.key}
+                                        href={social.href}
+                                        aria-label={social.label}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group relative w-10 h-10 flex items-center justify-center bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-primary/50 hover:bg-zinc-900 transition-all duration-300"
+                                    >
+                                        <IconComponent className="w-4 h-4 text-zinc-500 group-hover:text-primary transition-colors duration-300" />
+                                    </a>
+                                );
+                            })}
                         </div>
                     </div>
 
@@ -61,24 +82,28 @@ const Footer = () => {
                     <div>
                         <h4 className="text-white font-semibold text-sm mb-6">Get in Touch</h4>
                         <div className="space-y-4">
-                            <a
-                                href={`mailto:${FOOTER_CONTACT_INFO.email}`}
-                                className="flex items-center gap-3 text-zinc-500 text-sm hover:text-primary transition-colors group"
-                            >
-                                <div className="w-9 h-9 flex items-center justify-center bg-zinc-900/50 border border-zinc-800 rounded-lg group-hover:border-primary/50 transition-colors">
-                                    <Mail className="w-4 h-4" />
-                                </div>
-                                <span>{FOOTER_CONTACT_INFO.email}</span>
-                            </a>
-                            <a
-                                href={`tel:${FOOTER_CONTACT_INFO.phone}`}
-                                className="flex items-center gap-3 text-zinc-500 text-sm hover:text-primary transition-colors group"
-                            >
-                                <div className="w-9 h-9 flex items-center justify-center bg-zinc-900/50 border border-zinc-800 rounded-lg group-hover:border-primary/50 transition-colors">
-                                    <Phone className="w-4 h-4" />
-                                </div>
-                                <span>{FOOTER_CONTACT_INFO.phone}</span>
-                            </a>
+                            {contactInfo?.email && (
+                                <a
+                                    href={`mailto:${contactInfo.email}`}
+                                    className="flex items-center gap-3 text-zinc-500 text-sm hover:text-primary transition-colors group"
+                                >
+                                    <div className="w-9 h-9 flex items-center justify-center bg-zinc-900/50 border border-zinc-800 rounded-lg group-hover:border-primary/50 transition-colors">
+                                        <Mail className="w-4 h-4" />
+                                    </div>
+                                    <span>{contactInfo.email}</span>
+                                </a>
+                            )}
+                            {contactInfo?.phone && (
+                                <a
+                                    href={`tel:${contactInfo.phone}`}
+                                    className="flex items-center gap-3 text-zinc-500 text-sm hover:text-primary transition-colors group"
+                                >
+                                    <div className="w-9 h-9 flex items-center justify-center bg-zinc-900/50 border border-zinc-800 rounded-lg group-hover:border-primary/50 transition-colors">
+                                        <Phone className="w-4 h-4" />
+                                    </div>
+                                    <span>{contactInfo.phone}</span>
+                                </a>
+                            )}
                         </div>
                     </div>
 
