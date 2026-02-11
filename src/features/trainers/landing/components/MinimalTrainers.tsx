@@ -1,10 +1,79 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Linkedin, Twitter } from 'lucide-react';
-import { TRAINERS } from '../constants/trainers.constants';
+import {
+  Instagram,
+  Linkedin,
+  Twitter,
+  Facebook,
+  Youtube,
+  Github,
+  Mail,
+  Globe,
+  MessageCircle,
+  Phone,
+  MapPin,
+  Link as LinkIcon,
+} from 'lucide-react';
+import { Trainer, TrainerSocialMedia } from '@/features/trainers/types/trainers.types';
 
 export function MinimalTrainers() {
+  const [trainers, setTrainers] = useState<Trainer[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTrainers = async () => {
+      try {
+        const response = await fetch('/api/trainers');
+        const data = await response.json();
+        if (data.success) {
+          setTrainers(data.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch trainers:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTrainers();
+  }, []);
+
+  const getSocialIcon = (social: TrainerSocialMedia) => {
+    const icon = social.icon?.toLowerCase() || '';
+    const iconProps = { className: 'w-3.5 h-3.5' };
+
+    switch (icon) {
+      case 'facebook':
+        return <Facebook {...iconProps} />;
+      case 'instagram':
+        return <Instagram {...iconProps} />;
+      case 'twitter':
+        return <Twitter {...iconProps} />;
+      case 'linkedin':
+        return <Linkedin {...iconProps} />;
+      case 'youtube':
+        return <Youtube {...iconProps} />;
+      case 'github':
+        return <Github {...iconProps} />;
+      case 'email':
+        return <Mail {...iconProps} />;
+      case 'website':
+        return <Globe {...iconProps} />;
+      case 'whatsapp':
+        return <MessageCircle {...iconProps} />;
+      case 'phone':
+        return <Phone {...iconProps} />;
+      case 'location':
+        return <MapPin {...iconProps} />;
+      case 'link':
+        return <LinkIcon {...iconProps} />;
+      default:
+        return <LinkIcon {...iconProps} />;
+    }
+  };
+
   return (
     <section className="relative py-20 md:py-13 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
@@ -29,83 +98,75 @@ export function MinimalTrainers() {
 
         {/* Trainers Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
-          {TRAINERS.map((trainer, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
-            >
-              {/* Image */}
+          {loading ? (
+            <div className="col-span-full text-center text-zinc-400">Loading trainers...</div>
+          ) : (
+            trainers.map((trainer, index) => (
               <motion.div
-                className="relative aspect-[3/4] overflow-hidden bg-zinc-900 mb-4"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.4 }}
+                key={trainer.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group"
               >
-                <img
-                  src={trainer.image}
-                  alt={trainer.name}
-                  className="w-full h-full object-cover"
-                />
+                {/* Image */}
+                <motion.div
+                  className="relative aspect-3/4 overflow-hidden bg-zinc-900 mb-4"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <img
+                    src={trainer.image || '/trainers/fallback.jpg'}
+                    alt={trainer.fullname}
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+
+                {/* Content */}
+                <div className="space-y-1">
+                  {/* Experience */}
+                  {trainer.experience && (
+                    <p className="text-zinc-500 text-[10px] uppercase tracking-widest">
+                      {trainer.experience}
+                    </p>
+                  )}
+
+                  {/* Name */}
+                  <h2 className="text-lg font-bold text-white tracking-tight">
+                    {trainer.fullname}
+                  </h2>
+
+                  {/* Position */}
+                  {trainer.position && (
+                    <p className="text-zinc-400 text-xs leading-relaxed">
+                      {trainer.position}
+                    </p>
+                  )}
+
+                  {/* Social Links */}
+                  {trainer.socialMedia && trainer.socialMedia.length > 0 && (
+                    <div className="flex gap-3 pt-1">
+                      {trainer.socialMedia.map((social) => (
+                        <motion.a
+                          key={social.id}
+                          href={social.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ y: -2 }}
+                          transition={{ duration: 0.2 }}
+                          className="text-zinc-500 hover:text-white transition-colors"
+                          title={social.title}
+                        >
+                          {getSocialIcon(social)}
+                        </motion.a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </motion.div>
-
-              {/* Content */}
-              <div className="space-y-2">
-                {/* Experience */}
-                <p className="text-zinc-500 text-[10px] uppercase tracking-widest">
-                  {trainer.experience}
-                </p>
-
-                {/* Name */}
-                <h2 className="text-lg font-bold text-white tracking-tight">
-                  {trainer.name}
-                </h2>
-
-                {/* Position */}
-                <p className="text-zinc-400 text-xs leading-relaxed">
-                  {trainer.title}
-                </p>
-
-                {/* Social Links */}
-                {trainer.social && (
-                  <div className="flex gap-3 pt-1">
-                    {trainer.social.instagram && (
-                      <motion.a
-                        href={trainer.social.instagram}
-                        whileHover={{ y: -2 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-zinc-500 hover:text-white transition-colors"
-                      >
-                        <Instagram className="w-3.5 h-3.5" />
-                      </motion.a>
-                    )}
-                    {trainer.social.twitter && (
-                      <motion.a
-                        href={trainer.social.twitter}
-                        whileHover={{ y: -2 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-zinc-500 hover:text-white transition-colors"
-                      >
-                        <Twitter className="w-3.5 h-3.5" />
-                      </motion.a>
-                    )}
-                    {trainer.social.linkedin && (
-                      <motion.a
-                        href={trainer.social.linkedin}
-                        whileHover={{ y: -2 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-zinc-500 hover:text-white transition-colors"
-                      >
-                        <Linkedin className="w-3.5 h-3.5" />
-                      </motion.a>
-                    )}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </section>
