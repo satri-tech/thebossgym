@@ -1,6 +1,6 @@
 "use client";
 
-import { TestimonialsManager } from "../admin/components";
+import { TestimonialsManager } from ".";
 
 const AdminTestimonials = () => {
   return <TestimonialsManager />;

@@ -6,7 +6,7 @@ import { Button } from "@/core/components/ui/button";
 import { useScrollAnimation } from "@/core/lib/useScrollAnimation";
 import { TrainersGallery } from "@/features/trainers/landing/components/TrainersGallery";
 import { useEffect, useState } from "react";
-import Testimonials from "@/features/testimonials/components/Testimonials";
+import Testimonials from "@/features/testimonials/client/components/Testimonials";
 import AboutUsSection from "@/features/about-us/components/hero-section";
 import Link from "next/link";
 
