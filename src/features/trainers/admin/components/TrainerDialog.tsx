@@ -14,7 +14,7 @@ import {
   DialogTitle,
 } from "@/core/components/ui/dialog";
 import { ImageUploadDialog } from "@/core/components/image-upload";
-import { IconPicker } from "./IconPicker";
+import { IconPicker } from "@/core/components/icon-picker";
 import { Plus, Trash2 } from "lucide-react";
 
 interface TrainerDialogProps {
@@ -259,6 +259,8 @@ export function TrainerDialog({ open, onOpenChange, trainer, onSubmit }: Trainer
                         <IconPicker
                           value={sm.icon}
                           onChange={(icon) => handleSocialMediaChange(index, "icon", icon)}
+                          category="social"
+                          title="Select Social Icon"
                         />
                       </div>
                       <Input

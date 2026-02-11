@@ -1,10 +1,26 @@
 'use client';
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { useRef } from 'react';
-import { GYM_SERVICES, type Service } from '../constants/services.constants';
+import { useRef, useEffect, useState } from 'react';
+import {
+  Activity,
+  Dumbbell,
+  Heart,
+  Users,
+  LucideIcon,
+  Droplets,
+  Lock,
+  Music,
+  Flame,
+  Link as LinkIcon,
+} from 'lucide-react';
+import type { Service as ServiceType } from '../types/types';
 
-function ServiceCard({ service, index }: { service: Service; index: number }) {
+interface ServiceWithIcon extends ServiceType {
+  iconComponent: LucideIcon;
+}
+
+function ServiceCard({ service, index }: { service: ServiceWithIcon; index: number }) {
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -61,7 +77,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           transition={{ duration: 0.6, delay: 0.2, type: 'spring', stiffness: 200 }}
           className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-black gold-border-glow"
         >
-          <service.icon className="w-8 h-8 gold-icon" />
+          <service.iconComponent className="w-8 h-8 gold-icon" />
         </motion.div>
 
         <div className="space-y-6">
@@ -79,7 +95,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           <ul className="space-y-3 pt-4">
             {service.features.map((feature, idx) => (
               <motion.li
-                key={idx}
+                key={feature.id}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -87,7 +103,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
                 className="flex items-center gap-3 text-zinc-300"
               >
                 <span className="w-1.5 h-1.5 rounded-full gold-bg shrink-0" />
-                <span>{feature}</span>
+                <span>{feature.feature}</span>
               </motion.li>
             ))}
           </ul>
@@ -115,7 +131,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           >
             <img
               src={service.image}
-              alt={service.imageAlt}
+              alt={service.title}
               className="w-full h-full object-cover"
             />
           </motion.div>
@@ -134,6 +150,8 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
 export function Services() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [services, setServices] = useState<ServiceWithIcon[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -141,6 +159,42 @@ export function Services() {
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+
+  const getIconComponent = (iconName: string): LucideIcon => {
+    const iconMap: Record<string, LucideIcon> = {
+      activity: Activity,
+      dumbbell: Dumbbell,
+      heart: Heart,
+      users: Users,
+      droplets: Droplets,
+      lock: Lock,
+      music: Music,
+      flame: Flame,
+    };
+    return iconMap[iconName?.toLowerCase()] || LinkIcon;
+  };
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('/api/services');
+        const data = await response.json();
+        if (data.success) {
+          const servicesWithIcons = data.data.map((service: ServiceType) => ({
+            ...service,
+            iconComponent: getIconComponent(service.icon),
+          }));
+          setServices(servicesWithIcons);
+        }
+      } catch (error) {
+        console.error('Failed to fetch services:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   return (
     <section ref={sectionRef} className="relative py-20 md:py-32 px-6 bg-black overflow-hidden">
@@ -190,9 +244,13 @@ export function Services() {
 
         {/* Service Cards */}
         <div className="space-y-0">
-          {GYM_SERVICES.map((service, index) => (
-            <ServiceCard key={index} service={service} index={index} />
-          ))}
+          {loading ? (
+            <div className="text-center py-20 text-zinc-400">Loading services...</div>
+          ) : (
+            services.map((service, index) => (
+              <ServiceCard key={service.id} service={service} index={index} />
+            ))
+          )}
         </div>
       </div>
     </section>

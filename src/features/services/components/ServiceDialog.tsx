@@ -17,6 +17,7 @@ import { Spinner } from "@/core/components/ui/spinner";
 import { ImageUploadField } from "@/core/components/image-upload/ImageUploadField";
 import { X, Plus } from "lucide-react";
 import { SERVICES_CONFIG } from "../constants/services.constants";
+import { IconPicker } from "@/core/components/icon-picker";
 
 interface ServiceDialogProps {
   open: boolean;
@@ -191,13 +192,11 @@ export function ServiceDialog({
           <div className="grid grid-cols-4 gap-3">
             <div className="space-y-2">
               <Label htmlFor="icon">Icon *</Label>
-              <Input
-                id="icon"
-                placeholder="e.g., 💪"
+              <IconPicker
                 value={icon}
-                onChange={(e) => setIcon(e.target.value)}
-                maxLength={2}
-                className="text-center text-2xl"
+                onChange={setIcon}
+                category="fitness"
+                title="Select Service Icon"
               />
               {errors.icon && (
                 <p className="text-sm text-destructive">{errors.icon}</p>
