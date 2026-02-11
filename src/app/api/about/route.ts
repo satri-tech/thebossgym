@@ -16,7 +16,8 @@ export async function GET(request: NextRequest) {
           tag: "ABOUT THE BOSS GYM",
           heading: "WHERE CHAMPIONS ARE FORGED",
           highlight: "FORGED",
-          description: "Welcome to our gym where we help you achieve your fitness goals.",
+          description:
+            "Welcome to our gym where we help you achieve your fitness goals.",
           buttonText: "START YOUR JOURNEY",
           buttonLink: "/contact",
         },

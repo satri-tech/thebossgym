@@ -7,7 +7,7 @@ import { useScrollAnimation } from "@/core/lib/useScrollAnimation";
 import { TrainersGallery } from "@/features/trainers/landing/components/TrainersGallery";
 import { useEffect, useState } from "react";
 import Testimonials from "@/features/testimonials/components/Testimonials";
-import HeroSection from "@/features/about-us/components/hero-section";
+import AboutUsSection from "@/features/about-us/components/hero-section";
 import Link from "next/link";
 
 const BossGymLanding = () => {
@@ -137,7 +137,7 @@ const BossGymLanding = () => {
       </motion.section>
 
       {/* About Us Section  */}
-      <HeroSection theme="transparent" cta_text="Learn More" cta_classname="px-12 py-6" />
+      <AboutUsSection theme="transparent" cta_text="Learn More" cta_classname="px-12 py-6" />
 
       {/* Trainers Gallery Section - Isolated from scroll animations */}
       <div className="relative" style={{ transform: 'translateZ(0)' }}>
