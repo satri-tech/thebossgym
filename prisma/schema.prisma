@@ -64,7 +64,8 @@ model About {
 model FounderMessage {
   id              Int      @id @default(1)
   title           String
-  description     String
+  highlight       String   @default("FOUNDER")
+  description     String   @db.Text
   founderName     String
   founderPosition String
   founderImage    String?

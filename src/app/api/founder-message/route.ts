@@ -11,21 +11,14 @@ export async function GET() {
       founderMessage = await prisma.founderMessage.create({
         data: {
           id: 1,
-          title: "",
+          title: "FROM THE FOUNDER",
+          highlight: "FOUNDER",
           description: "",
           founderName: "",
           founderPosition: "",
-          founderImage: "/founder/fallback.jpg",
+          founderImage: null,
         },
       });
-    }
-
-    // Ensure fallback image if none is set
-    if (!founderMessage.founderImage) {
-      founderMessage = {
-        ...founderMessage,
-        founderImage: "/founder/fallback.jpg",
-      };
     }
 
     return successResponse(founderMessage, "Founder message retrieved successfully");

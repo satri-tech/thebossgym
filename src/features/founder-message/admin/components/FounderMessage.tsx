@@ -25,6 +25,7 @@ export default function FounderMessageAdmin() {
     useFounderMessage();
   const [formData, setFormData] = useState({
     title: "",
+    highlight: "",
     description: "",
     founderName: "",
     founderPosition: "",
@@ -41,6 +42,7 @@ export default function FounderMessageAdmin() {
     if (founderMessage) {
       setFormData({
         title: founderMessage.title ?? "",
+        highlight: founderMessage.highlight ?? "",
         description: founderMessage.description ?? "",
         founderName: founderMessage.founderName ?? "",
         founderPosition: founderMessage.founderPosition ?? "",
@@ -105,6 +107,7 @@ export default function FounderMessageAdmin() {
     const hasChanges =
       !founderMessage ||
       formData.title !== (founderMessage.title ?? "") ||
+      formData.highlight !== (founderMessage.highlight ?? "") ||
       formData.description !== (founderMessage.description ?? "") ||
       formData.founderName !== (founderMessage.founderName ?? "") ||
       formData.founderPosition !== (founderMessage.founderPosition ?? "") ||
@@ -168,6 +171,7 @@ export default function FounderMessageAdmin() {
 
       const payload: Record<string, unknown> = {};
       if (formData.title.trim().length) payload.title = formData.title;
+      if (formData.highlight.trim().length) payload.highlight = formData.highlight;
       if (formData.description.trim().length)
         payload.description = formData.description;
       if (formData.founderName.trim().length)
@@ -315,6 +319,17 @@ export default function FounderMessageAdmin() {
                   value={formData.title}
                   onChange={handleInputChange}
                   placeholder="FROM THE FOUNDER"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="highlight">Highlight Word</Label>
+                <Input
+                  id="highlight"
+                  name="highlight"
+                  value={formData.highlight}
+                  onChange={handleInputChange}
+                  placeholder="FOUNDER"
                 />
               </div>
 

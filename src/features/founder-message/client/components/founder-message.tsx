@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Skeleton } from "@/core/components/ui/skeleton";
 
 interface FounderMessageData {
   title: string;
+  highlight: string;
   description: string;
   founderName: string;
   founderPosition: string;
@@ -17,6 +19,7 @@ interface FounderMessageData {
 const FounderMessage = () => {
   const [data, setData] = useState<FounderMessageData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,20 +60,21 @@ const FounderMessage = () => {
   }
 
   const title = data?.title || "FROM THE FOUNDER";
+  const highlight = data?.highlight || "FOUNDER";
   const description = data?.description || "";
   const founderName = data?.founderName || "Dhan Bahadur Gurung";
   const founderPosition = data?.founderPosition || "FOUNDER & CEO";
-  const founderImage = data?.founderImage || "/founder/fallback.jpg";
+  const founderImage = data?.founderImage;
 
   // Split description into paragraphs
   const paragraphs = description
     ? description.split("\n").filter((p) => p.trim())
     : [
-        '"When I started The Boss Gym, I had one goal: to create a place where people don\'t just work out, they transform. A place where every person who walks through our doors feels empowered, supported, and ready to conquer their goals."',
-        '"Fitness isn\'t just about physical strength. It\'s about mental resilience, discipline, and the courage to push beyond your limits. That\'s what we cultivate here every single day."',
-        '"Thank you for being part of our journey. Together, we\'re not just building bodies, we\'re building champions."',
-      ];
-
+      '"When I started The Boss Gym, I had one goal: to create a place where people don\'t just work out, they transform. A place where every person who walks through our doors feels empowered, supported, and ready to conquer their goals."',
+      '"Fitness isn\'t just about physical strength. It\'s about mental resilience, discipline, and the courage to push beyond your limits. That\'s what we cultivate here every single day."',
+      '"Thank you for being part of our journey. Together, we\'re not just building bodies, we\'re building champions."',
+    ];
+  console.log(founderImage)
   return (
     <section className="relative py-32 px-4">
       <div className="max-w-6xl mx-auto">
@@ -91,6 +95,9 @@ const FounderMessage = () => {
           >
             <div className="relative aspect-3/4 bg-zinc-900 overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent z-10" />
+              {!imageLoaded && founderImage && (
+                <Skeleton className="absolute inset-0 rounded-none" />
+              )}
               {founderImage ? (
                 <Image
                   src={founderImage}
@@ -99,6 +106,7 @@ const FounderMessage = () => {
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority
+                  onLoadingComplete={() => setImageLoaded(true)}
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -116,13 +124,11 @@ const FounderMessage = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="anton-font text-6xl md:text-7xl mb-8">
-              {title.split(" ").map((word, index) =>
-                word === "FOUNDER" ? (
-                  <span key={index} className="gold-text">
-                    {word}{" "}
-                  </span>
+              {title.split(new RegExp(`(${highlight})`, 'gi')).map((part, index) =>
+                part.toLowerCase() === highlight.toLowerCase() ? (
+                  <span key={index} className="gold-text">{part} </span>
                 ) : (
-                  <span key={index}>{word} </span>
+                  <span key={index}>{part} </span>
                 )
               )}
             </h2>
