@@ -76,7 +76,7 @@ export function ImageUploadDialog({
         >
           {imageUrl ? (
             <Image
-              src={displayUrl}
+              src={`/api/images${displayUrl}`}
               alt="Upload preview"
               fill
               className="object-cover"

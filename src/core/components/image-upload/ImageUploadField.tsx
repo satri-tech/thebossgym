@@ -6,6 +6,7 @@ import { Label } from "@/core/components/ui/label";
 import { X, ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/core/lib/utils";
+import Image from "next/image";
 
 interface ImageUploadFieldProps {
   label?: string;
@@ -63,7 +64,7 @@ export function ImageUploadField({
 
     // First call onChange with the file
     onChange(file);
-    
+
     // Then create and set the preview
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -72,7 +73,7 @@ export function ImageUploadField({
       onPreviewChange?.(result);
     };
     reader.readAsDataURL(file);
-    
+
     return true;
   };
 
@@ -126,17 +127,19 @@ export function ImageUploadField({
   return (
     <div className="space-y-2">
       {label && <Label>{label}</Label>}
-      
+
       <div className="space-y-4">
         {shouldShowPreview ? (
           // Preview Mode
           <div className="relative w-full max-w-2xl">
             <div className="relative aspect-video w-full overflow-hidden rounded-lg border-2 border-border bg-muted">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={localPreview}
-                alt="Preview"
-                className="w-full h-full object-cover"
+                alt={"Preview"}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                className="object-cover"
               />
             </div>
             <Button

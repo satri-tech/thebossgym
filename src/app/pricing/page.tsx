@@ -68,7 +68,7 @@ export default function PricingPage() {
                 <span className="gold-text">Perfect Plan</span>
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
-                Transform your body and mind with our premium gym facilities. 
+                Transform your body and mind with our premium gym facilities.
                 Select the membership that fits your fitness journey.
               </p>
             </motion.div>

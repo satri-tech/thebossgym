@@ -108,7 +108,7 @@ const FacilitiesSnapshot = () => {
               {/* Image */}
               {facility.image ? (
                 <Image
-                  src={facility.image}
+                  src={`/api/images${facility.image}`}
                   alt={facility.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"

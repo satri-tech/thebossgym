@@ -33,7 +33,7 @@ export function ServiceCard({ service, onEdit, onDelete }: ServiceCardProps) {
       {/* Image */}
       <div className="relative aspect-video w-full overflow-hidden bg-muted">
         <Image
-          src={imageSrc}
+          src={`/api/images${imageSrc}`}
           alt={service.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

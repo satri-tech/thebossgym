@@ -17,6 +17,7 @@ import {
   Link as LinkIcon,
 } from 'lucide-react';
 import { Trainer, TrainerSocialMedia } from '@/features/trainers/types/trainers.types';
+import Image from 'next/image';
 
 export function MinimalTrainers() {
   const [trainers, setTrainers] = useState<Trainer[]>([]);
@@ -116,10 +117,14 @@ export function MinimalTrainers() {
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <img
-                    src={trainer.image || '/trainers/fallback.jpg'}
+
+                  <Image
+                    src={trainer.image ? `/api/images${trainer.image}` : '/fallback.jpg'}
                     alt={trainer.fullname}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                    className="object-cover"
+                    priority={index < 4}
                   />
                 </motion.div>
 

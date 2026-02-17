@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useCountUp } from '@/core/lib/useCountUp';
 import { Dumbbell, Users, Trophy, Zap } from 'lucide-react';
+import Image from 'next/image';
 
 interface StorySection {
   title: string;
@@ -209,10 +210,12 @@ function StorySection({ section, index }: { section: StorySection; index: number
             style={{ y: imageY, scale }}
             className="absolute inset-0 w-full h-full"
           >
-            <img
+            <Image
               src={section.image}
               alt={section.imageAlt}
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+              className="object-cover"
             />
           </motion.div>
 
@@ -221,15 +224,6 @@ function StorySection({ section, index }: { section: StorySection; index: number
             style={{ opacity: overlayOpacity }}
             className="absolute inset-0 bg-linear-to-br from-black/60 via-black/30 to-transparent"
           />
-
-          {/* Hover Border Effect
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 border-4 border-primary/50 rounded-3xl"
-          /> */}
-
 
         </div>
 

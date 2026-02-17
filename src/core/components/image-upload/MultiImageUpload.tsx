@@ -300,7 +300,7 @@ export function MultiImageUpload({
                 {/* Image */}
                 <div className="aspect-square relative bg-muted">
                   <Image
-                    src={image.preview}
+                    src={`/api/images${image.preview}`}
                     alt="Preview"
                     fill
                     className="object-cover"
@@ -344,7 +344,7 @@ export function MultiImageUpload({
             </DialogHeader>
             <div className="flex items-center justify-center w-full h-96 bg-muted rounded-lg overflow-hidden">
               <Image
-                src={previewImage.preview}
+                src={`/api/images${previewImage.preview}`}
                 alt="Full preview"
                 width={500}
                 height={500}

@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/core/components/ui/button";
@@ -151,11 +153,11 @@ const AboutUsSection = ({ theme = 'dark', cta_text, cta_classname = "px-12 py-6"
                             <Skeleton className="absolute inset-0 rounded-lg" />
                         )}
                         {displayData.image && (
-                            <Image 
-                                height={1000} 
-                                width={1000} 
-                                alt="about us image" 
-                                src={displayData.image} 
+                            <Image
+                                height={1000}
+                                width={1000}
+                                alt="about us image"
+                                src={`/api/images${displayData.image}`}
                                 className="h-full w-full object-cover rounded-lg"
                                 priority
                                 onLoadingComplete={() => setImageLoaded(true)}

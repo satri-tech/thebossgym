@@ -1,4 +1,4 @@
-import React from 'react';
+"use client"
 import { MinimalTrainers } from '@/features/trainers/landing/components/MinimalTrainers';
 
 const TrainersPage = () => {

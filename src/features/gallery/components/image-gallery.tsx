@@ -65,7 +65,7 @@ function AnimatedImage({ alt, src, ratio }: AnimatedImageProps) {
 		>
 			<Image
 				alt={alt}
-				src={src}
+				src={`/api/images${src}`}
 				fill
 				sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
 				className={cn(

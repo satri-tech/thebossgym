@@ -3,10 +3,39 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/core/components/ui/button';
 import Link from 'next/link';
-import { TrainerImages } from '../../../../../public/trainers';
 import ExpandableGallery from '@/core/components/expandable-gallery';
+import { useEffect, useState } from 'react';
 
 export function TrainersGallery() {
+  const [images, setImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTrainerImages = async () => {
+      try {
+        const response = await fetch('/api/trainers');
+        const result = await response.json();
+
+        if (result.success && result.data && result.data.length > 0) {
+          const imageUrls = result.data
+            .filter((trainer: { image: string | null }) => trainer.image)
+            .map((trainer: { image: string }) => trainer.image);
+          setImages(imageUrls.length > 0 ? imageUrls : ['/fallback.jpg']);
+        } else {
+          setImages(['/fallback.jpg']);
+        }
+      } catch (error) {
+        console.error('Error fetching trainer images:', error);
+        setImages(['/fallback.jpg']);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTrainerImages();
+  }, []);
+
+
   return (
     <section className="relative py-20 md:py-32 px-6 bg-black">
       {/* Background Grid */}
@@ -50,7 +79,7 @@ export function TrainersGallery() {
 
         {/* Gallery */}
         <div className="mb-12 w-full flex justify-center">
-          <ExpandableGallery images={TrainerImages} className="w-11/12 max-w-7xl" />
+          <ExpandableGallery images={images} className="w-11/12 max-w-7xl" />
         </div>
 
         {/* CTA Button */}

@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import {
   Activity,
   Dumbbell,
@@ -129,10 +130,13 @@ function ServiceCard({ service, index }: { service: ServiceWithIcon; index: numb
             style={{ y: imageY, scale }}
             className="absolute inset-0 w-full h-full"
           >
-            <img
-              src={service.image}
+            <Image
+              src={`/api/images${service.image}`}
               alt={service.title}
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+              className="object-cover"
+              priority={index === 0}
             />
           </motion.div>
 

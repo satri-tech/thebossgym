@@ -200,7 +200,7 @@ const Testimonials =  () => {
                                   <Skeleton className="w-full h-full rounded-full" />
                                 )}
                                 <Image
-                                  src={testimonial.image || "/fallback.jpg"}
+                                  src={`/api/images${testimonial.image}` || "/fallback.jpg"}
                                   alt={testimonial.name}
                                   width={56}
                                   height={56}

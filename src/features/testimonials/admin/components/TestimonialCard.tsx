@@ -26,7 +26,7 @@ export function TestimonialCard({
           <div className="relative flex-shrink-0">
             <div className="relative w-14 h-14 rounded-full overflow-hidden bg-muted ring-1 ring-border">
               <Image
-                src={testimonial.image || "/testimonials/fallback.jpg"}
+                src={`/api/images${testimonial.image}` || "/testimonials/fallback.jpg"}
                 alt={testimonial.name}
                 fill
                 className="object-cover"

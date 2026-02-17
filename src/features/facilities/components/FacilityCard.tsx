@@ -34,7 +34,7 @@ export function FacilityCard({ facility, onEdit, onDelete }: FacilityCardProps) 
         <Card className="group overflow-hidden border-border/60 bg-card/60 pt-0 backdrop-blur supports-backdrop-filter:bg-card/50 hover:shadow-lg hover:shadow-black/20 transition-all duration-200">
             <div className="relative aspect-video w-full overflow-hidden bg-muted">
                 <Image
-                    src={imageSrc}
+                    src={`/api/images${imageSrc}`}
                     alt={facility.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

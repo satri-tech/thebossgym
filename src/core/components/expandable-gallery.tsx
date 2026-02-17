@@ -63,7 +63,7 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = memo(({ images, clas
             >
               <div className="relative w-full h-full">
                 <Image
-                  src={image}
+                  src={`/api/images${image}`}
                   alt={`Gallery image ${index + 1}`}
                   fill
                   className="object-cover"
@@ -145,7 +145,7 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = memo(({ images, clas
             >
               <Image
                 key={selectedIndex}
-                src={images[selectedIndex]}
+                src={`/api/images${images[selectedIndex]}`}
                 alt={`Gallery image ${selectedIndex + 1}`}
                 fill
                 className="object-contain rounded-md"

@@ -100,7 +100,7 @@ const FounderMessage = () => {
               )}
               {founderImage ? (
                 <Image
-                  src={founderImage}
+                  src={`/api/images${founderImage}`}
                   alt={founderName}
                   fill
                   className="object-cover"

@@ -6,6 +6,7 @@ import { UpdateFounderMessageInput } from "@/core/validators/founder-message.val
 export interface FounderMessage {
   id: number;
   title: string;
+  highlight: string;
   description: string;
   founderName: string;
   founderPosition: string;
@@ -18,14 +19,15 @@ interface UseFounderMessageResult {
   loading: boolean;
   error: string | null;
   updateFounderMessage: (
-    input: UpdateFounderMessageInput
+    input: UpdateFounderMessageInput,
   ) => Promise<{ success: boolean; data?: FounderMessage; error?: string }>;
   refetch: () => Promise<void>;
 }
 
 export function useFounderMessage(): UseFounderMessageResult {
-  const [founderMessage, setFounderMessage] =
-    useState<FounderMessage | null>(null);
+  const [founderMessage, setFounderMessage] = useState<FounderMessage | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -62,7 +64,7 @@ export function useFounderMessage(): UseFounderMessageResult {
       if (!response.ok) {
         if (data.errors && typeof data.errors === "object") {
           const errorMessages = Object.entries(
-            data.errors as Record<string, string>
+            data.errors as Record<string, string>,
           )
             .map(([field, message]) => `${field}: ${message}`)
             .join(", ");
@@ -91,6 +93,3 @@ export function useFounderMessage(): UseFounderMessageResult {
     refetch: fetchFounderMessage,
   };
 }
-
-
-

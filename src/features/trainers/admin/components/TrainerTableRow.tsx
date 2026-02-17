@@ -22,13 +22,13 @@ interface TrainerTableRowProps {
 
 const getIconComponent = (iconName?: string | null) => {
   if (!iconName) return LucideIcons.Link;
-  
+
   // Convert icon name to PascalCase for Lucide
   const pascalCase = iconName
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join('');
-  
+
   const IconComponent = (LucideIcons as any)[pascalCase];
   return IconComponent || LucideIcons.Link;
 };
@@ -57,7 +57,7 @@ export function TrainerTableRow({ trainer, onEdit, onDelete, isDragging }: Train
       {/* Image */}
       <div className="w-12 h-12 relative rounded-full overflow-hidden bg-muted">
         <Image
-          src={imageUrl}
+          src={`/api/images${imageUrl}`}
           alt={trainer.fullname}
           fill
           className="object-cover"

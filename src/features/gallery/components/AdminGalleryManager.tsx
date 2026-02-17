@@ -134,7 +134,7 @@ export function AdminGalleryManager() {
                       >
                         <Image
                           alt={image.alt}
-                          src={image.imageUrl}
+                          src={`/api/images${image.imageUrl}`}
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                           className="rounded-lg object-cover"
