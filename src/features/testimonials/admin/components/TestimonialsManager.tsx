@@ -129,7 +129,7 @@ export function TestimonialsManager() {
             Manage customer testimonials displayed on your website
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)} disabled={loading}>
+        <Button className="gold-bg  text-black" onClick={() => setDialogOpen(true)} disabled={loading}>
           <Plus className="h-4 w-4 mr-2" />
           Add Testimonial
         </Button>
@@ -160,7 +160,7 @@ export function TestimonialsManager() {
           <p className="text-muted-foreground mb-4">
             Get started by adding your first testimonial
           </p>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} className="gold-bg  text-black">
             <Plus className="h-4 w-4 mr-2" />
             Add Your First Testimonial
           </Button>

@@ -113,7 +113,7 @@ export function StatDialog({ open, onOpenChange, stat, onSubmit }: StatDialogPro
             >
               Cancel
             </Button>
-            <Button type="submit" className="flex-1" disabled={submitting}>
+            <Button type="submit" className="flex-1 gold-bg text-black " disabled={submitting}>
               {submitting ? "Saving..." : stat ? "Update" : "Create"}
             </Button>
           </div>

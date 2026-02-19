@@ -67,7 +67,7 @@ export function StatsManager() {
       ...stat,
       order: index,
     }));
-    
+
     await reorderStats(statsWithNewOrder);
   };
 
@@ -95,7 +95,7 @@ export function StatsManager() {
             Manage statistics displayed on your website. Drag to reorder.
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)} disabled={loading}>
+        <Button className="gold-bg text-black" onClick={() => setDialogOpen(true)} disabled={loading}>
           <Plus className="h-4 w-4 mr-2" />
           Add Stat
         </Button>
@@ -126,7 +126,7 @@ export function StatsManager() {
           <p className="text-muted-foreground mb-4">
             Get started by creating your first stat
           </p>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} className="gold-bg  text-black">
             <Plus className="h-4 w-4 mr-2" />
             Add Your First Stat
           </Button>

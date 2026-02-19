@@ -95,7 +95,7 @@ export function TrainersManager() {
             Manage trainers displayed on your website. Drag to reorder.
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)} disabled={loading}>
+        <Button onClick={() => setDialogOpen(true)} disabled={loading} className="gold-bg  text-black">
           <Plus className="h-4 w-4 mr-2" />
           Add Trainer
         </Button>
@@ -127,7 +127,7 @@ export function TrainersManager() {
           <p className="text-muted-foreground mb-4">
             Get started by adding your first trainer
           </p>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} className="gold-bg  text-black">
             <Plus className="h-4 w-4 mr-2" />
             Add Your First Trainer
           </Button>

@@ -459,13 +459,13 @@ export function PlanDialog({
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={loading}
-              className="h-8 text-sm"
+              className=" text-sm"
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading} className="h-8 text-sm bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Button type="submit" disabled={loading} className=" text-sm gold-bg text-black">
               {loading && <Spinner className="w-3 h-3 mr-1.5" />}
-              {plan ? "Update" : "Create"}
+              {plan ? "Update Pricing Plan" : "Create Pricing Plan"}
             </Button>
           </div>
         </form>

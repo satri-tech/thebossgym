@@ -348,7 +348,7 @@ export default function FounderMessageAdmin() {
             </div>
 
             <div className="flex justify-end pt-4">
-              <Button type="submit" disabled={isSaving || isUploadingImage}>
+              <Button className="gold-bg text-black" type="submit" disabled={isSaving || isUploadingImage}>
                 <Save className="h-4 w-4 mr-2" />
                 {isUploadingImage
                   ? "Uploading..."

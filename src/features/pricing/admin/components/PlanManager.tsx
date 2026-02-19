@@ -75,7 +75,7 @@ export function PlanManager({ plans, onRefetch }: PlanManagerProps) {
           </p>
         </div>
 
-        <Button onClick={() => setDialogOpen(true)}>
+        <Button onClick={() => setDialogOpen(true)} className="gold-bg  text-black">
           <Plus className="w-4 h-4 mr-2" />
           Add Plan
         </Button>

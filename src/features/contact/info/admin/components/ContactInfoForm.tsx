@@ -54,7 +54,7 @@ export function ContactInfoForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8 flex flex-col">
       {/* Contact Details Section */}
       <Card className="p-6">
         <h2 className="text-xl font-semibold mb-6">Contact Details</h2>
@@ -211,7 +211,7 @@ export function ContactInfoForm({
       <Button
         type="submit"
         disabled={isLoading || isSubmitting}
-        className="w-full"
+        className="w-max ml-auto gold-bg text-black"
       >
         {isSubmitting || isLoading ? (
           <>

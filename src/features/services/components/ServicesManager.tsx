@@ -104,7 +104,7 @@ export function ServicesManager() {
             Manage services displayed on your website
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)} disabled={loading}>
+        <Button onClick={() => setDialogOpen(true)} disabled={loading} className="gold-bg  text-black">
           <Plus className="h-4 w-4 mr-2" />
           Add Service
         </Button>
@@ -134,7 +134,7 @@ export function ServicesManager() {
           <p className="text-muted-foreground mb-4">
             Get started by creating your first service
           </p>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} className="gold-bg  text-black">
             <Plus className="h-4 w-4 mr-2" />
             Add Your First Service
           </Button>

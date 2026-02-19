@@ -271,9 +271,9 @@ export function AboutManager() {
             />
 
             {/* Submit Button */}
-            <div className="flex justify-end pt-4">
-              <Button type="submit" disabled={isSaving}>
-                <Save className="h-4 w-4 mr-2" />
+            <div className="flex justify-end pt-4 ">
+              <Button type="submit" className="gold-bg text-black"  disabled={isSaving}>
+                <Save className="h-4 w-4 mr-2 " />
                 {isSaving ? "Saving..." : "Save Changes"}
               </Button>
             </div>

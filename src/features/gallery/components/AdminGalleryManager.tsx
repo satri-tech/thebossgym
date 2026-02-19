@@ -82,7 +82,7 @@ export function AdminGalleryManager() {
             Upload and manage gallery images
           </p>
         </div>
-        <Button onClick={() => setUploadDialogOpen(true)}>
+        <Button onClick={() => setUploadDialogOpen(true)} className="gold-bg  text-black">
           <Plus className="w-4 h-4 mr-2" />
           Upload Image
         </Button>

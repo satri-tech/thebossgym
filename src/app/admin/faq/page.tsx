@@ -164,7 +164,7 @@ export default function AdminFAQPage() {
             Manage frequently asked questions shown on your website.
           </p>
         </div>
-        <Button onClick={openCreateDialog} disabled={loading}>
+        <Button onClick={openCreateDialog} disabled={loading} className="gold-bg  text-black">
           <Plus className="w-4 h-4 mr-2" />
           Add FAQ
         </Button>
@@ -195,7 +195,7 @@ export default function AdminFAQPage() {
           <p className="text-muted-foreground mb-4">
             Get started by creating your first FAQ
           </p>
-          <Button onClick={openCreateDialog}>
+          <Button onClick={openCreateDialog} className="gold-bg  text-black">
             <Plus className="w-4 h-4 mr-2" />
             Add Your First FAQ
           </Button>
@@ -313,7 +313,7 @@ export default function AdminFAQPage() {
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={saving}>
+              <Button type="submit" disabled={saving} className="gold-bg  text-black">
                 {saving ? (
                   <>
                     <Spinner className="w-4 h-4 mr-2" />

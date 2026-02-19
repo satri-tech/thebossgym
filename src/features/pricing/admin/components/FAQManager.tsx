@@ -65,7 +65,7 @@ export function FAQManager({ faqs, onRefetch }: FAQManagerProps) {
             Manage frequently asked questions
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)}>
+        <Button onClick={() => setDialogOpen(true)} className="gold-bg  text-black">
           <Plus className="w-4 h-4 mr-2" />
           Add FAQ
         </Button>

@@ -105,7 +105,7 @@ export function FacilitiesManager() {
             Manage facilities displayed on your website
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)} disabled={loading}>
+        <Button className="gold-bg  text-black" onClick={() => setDialogOpen(true)} disabled={loading}>
           <Plus className="h-4 w-4 mr-2" />
           Add Facility
         </Button>
@@ -136,7 +136,7 @@ export function FacilitiesManager() {
           <p className="text-muted-foreground mb-4">
             Get started by creating your first facility
           </p>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button className="gold-bg  text-black" onClick={() => setDialogOpen(true)}>
             <Plus className="h-4 w-4 mr-2" />
             Add Your First Facility
           </Button>

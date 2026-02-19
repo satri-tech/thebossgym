@@ -67,9 +67,9 @@ export const CategoriesTable = () => {
         </div>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button 
+            <Button
               onClick={() => { setEditingId(null); setFormData({ name: '' }); }}
-              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+              className="gold-bg  text-black"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add Category
@@ -78,7 +78,7 @@ export const CategoriesTable = () => {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
-                {editingId ? 'Edit Category' : 'Add New Category'}
+                {editingId ? 'Edit Contact Category' : 'Add New Contact Category'}
               </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -95,8 +95,8 @@ export const CategoriesTable = () => {
                 <Button type="button" variant="outline" onClick={handleClose}>
                   Cancel
                 </Button>
-                <Button type="submit">
-                  {editingId ? 'Update' : 'Create'}
+                <Button type="submit" className="gold-bg  text-black">
+                  {editingId ? 'Update Category' : 'Create Category'}
                 </Button>
               </div>
             </form>
@@ -120,8 +120,8 @@ export const CategoriesTable = () => {
             </thead>
             <tbody>
               {categories.map((category, index) => (
-                <tr 
-                  key={category.id} 
+                <tr
+                  key={category.id}
                   className="border-b border-zinc-800 hover:bg-zinc-900/50 transition-colors last:border-b-0"
                 >
                   <td className="px-6 py-4 text-sm font-medium text-white">

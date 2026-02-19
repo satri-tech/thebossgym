@@ -93,3 +93,4 @@ export function useFounderMessage(): UseFounderMessageResult {
     refetch: fetchFounderMessage,
   };
 }
+

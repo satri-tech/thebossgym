@@ -65,7 +65,7 @@ export const CategoriesManager = () => {
         <h3 className="text-lg font-semibold">Message Categories</h3>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" onClick={() => { setEditingId(null); setFormData({ name: '' }); }}>
+            <Button className="gold-bg  text-black" size="sm" onClick={() => { setEditingId(null); setFormData({ name: '' }); }}>
               <Plus className="w-4 h-4 mr-2" />
               Add Category
             </Button>
@@ -91,6 +91,7 @@ export const CategoriesManager = () => {
                   Cancel
                 </Button>
                 <Button type="submit">
+                  edrf
                   {editingId ? 'Update' : 'Create'}
                 </Button>
               </div>
