@@ -5,6 +5,7 @@ import { Button } from "@/core/components/ui/button";
 import { navLinks } from "../constants/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const Navbar = () => {
     const pathname = usePathname();
@@ -22,9 +23,18 @@ const Navbar = () => {
                         whileHover={{ scale: 1.05 }}
                         className="shrink-0"
                     >
-                        <span className="anton-font text-2xl font-bold gold-text">
+                        <Image
+                            src="/logo.png"
+                            alt="logo"
+                            height={40}
+                            width={80}
+                            quality={100}
+                            priority
+                            className="object-contain h-12 w-auto"
+                        />
+                        {/* <span className="anton-font text-2xl font-bold gold-text">
                             BOSS
-                        </span>
+                        </span> */}
                     </motion.div>
                     {/* Nav Links */}
                     <div className="hidden md:flex items-center gap-8">
