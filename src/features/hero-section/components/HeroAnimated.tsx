@@ -8,7 +8,7 @@ export default function HeroAnimated({ children }: { children: React.ReactNode }
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28"
+      className="relative min-h-screen flex sm:items-center mt-20 sm:mt-0 justify-center overflow-hidden pt-28"
     >
       {children}
     </motion.section>
