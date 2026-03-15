@@ -26,11 +26,11 @@ const Navbar = () => {
                         <Image
                             src="/logo.png"
                             alt="logo"
-                            height={40}
-                            width={80}
+                            height={80}
+                            width={160}
                             quality={100}
                             priority
-                            className="object-contain h-12 w-auto"
+                            className="object-contain h-24 w-auto"
                         />
                         {/* <span className="anton-font text-2xl font-bold gold-text">
                             BOSS
