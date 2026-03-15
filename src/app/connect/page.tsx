@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import { Mail, MapPin, Phone, Globe } from "lucide-react";
+import { Mail, MapPin, Phone, Globe, Facebook, Instagram } from "lucide-react";
 import dynamic from "next/dynamic";
 
 const ContactMap = dynamic(() => import('@/core/components/contact-map'), {
@@ -57,11 +57,59 @@ export default function ConnectPage() {
           <h2 className="text-4xl font-bold mb-4 text-center">
             Contact & <span className="gold-text">Visit</span>
           </h2>
-          <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-gray-400 mb-8 max-w-2xl mx-auto">
             Find us in Pokhara-8, Prithvi Chowk, Kaski. Whether you are a
             beginner or advanced athlete, we can help you plan your next
             training step.
           </p>
+
+          {/* Social Media Icons */}
+          <div className="flex justify-center gap-6 mb-12">
+            <a
+              href="https://www.facebook.com/Thebossgymofficial/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-zinc-800 hover:bg-[#d4af37] p-5 rounded-lg transition-all transform hover:scale-110 group"
+              aria-label="Facebook"
+            >
+              <Facebook className="w-10 h-10 text-white group-hover:text-black transition-colors" />
+            </a>
+            <a
+              href="https://www.instagram.com/thebossgymoffical/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-zinc-800 hover:bg-[#d4af37] p-5 rounded-lg transition-all transform hover:scale-110 group"
+              aria-label="Instagram"
+            >
+              <Instagram className="w-10 h-10 text-white group-hover:text-black transition-colors" />
+            </a>
+            <a
+              href="https://www.tiktok.com/@thebossgymofficial"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-zinc-800 hover:bg-[#d4af37] p-5 rounded-lg transition-all transform hover:scale-110 group"
+              aria-label="TikTok"
+            >
+              <div className="text-white group-hover:text-black transition-colors w-10 h-10">
+                <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+              </div>
+            </a>
+            <a
+              href="https://www.pinterest.com/thebossgymofficial/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-zinc-800 hover:bg-[#d4af37] p-5 rounded-lg transition-all transform hover:scale-110 group"
+              aria-label="Pinterest"
+            >
+              <div className="text-white group-hover:text-black transition-colors w-10 h-10">
+                <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 0a12 12 0 0 0-4.37 23.17c-.1-.92-.19-2.31 0-3.31l1.44-6.09s-.37-.73-.37-1.81c0-1.7 1-3 2.21-3 1 0 1.53.78 1.53 1.71 0 1-.7 2.61-1.06 4.06-.3 1.27.64 2.31 1.89 2.31 2.27 0 4-2.39 4-5.84 0-3.05-2.19-5.18-5.32-5.18-3.63 0-5.76 2.72-5.76 5.53 0 1.1.42 2.27.95 2.91a.36.36 0 0 1 .08.35c-.09.38-.31 1.23-.35 1.4-.05.23-.17.28-.4.17-1.59-.74-2.59-3.06-2.59-4.92 0-4 2.91-7.68 8.39-7.68 4.4 0 7.82 3.14 7.82 7.33 0 4.37-2.75 7.88-6.57 7.88-1.28 0-2.49-.67-2.9-1.45l-.79 3c-.29 1.1-1.06 2.48-1.58 3.32A12 12 0 1 0 12 0z"/>
+                </svg>
+              </div>
+            </a>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Information */}
